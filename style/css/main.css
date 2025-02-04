@@ -14,5 +14,19 @@ main {
 main div {
   min-height: 90vh;
   width: 49%;
-  background-color: rgb(220, 14, 14);
+  background-color: rgb(199, 38, 38);
+}
+main .clicker-menu .clicker-menu__peach {
+  width: 100%;
+  background-color: green;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main .clicker-menu .clicker-menu__peach img {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  margin: auto;
 }
