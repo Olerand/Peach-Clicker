@@ -1,3 +1,16 @@
+@keyframes rotatePeach{
+   from{
+    transform: rotate(360deg);
+   }
+
+}
+@keyframes shake {
+    0% { transform: rotate(10deg); }
+    25% { transform: rotate(100deg); }
+    50% { transform: rotate(0eg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+  }
 main{
     width: 100%;
     height: 90vh;
@@ -5,11 +18,12 @@ main{
     display: flex;
     justify-content: space-between;
     div{
-        min-height: 90vh;
         width: 49%;
         background-color: rgb(199, 38, 38);
     }
     .clicker-menu{
+        display: flex;
+        flex-grow: 1;
         .clicker-menu__peach{
             width: 100%;
             background-color: green;
@@ -17,16 +31,51 @@ main{
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-grow: 1;
         }
         .clicker-menu__peach img{
             width:200px;
             height: 200px;
             display: flex;
             margin: auto;
+            animation-name: rotatePeach;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+
         }
     }
     .upgrade-menu{
-        
+        display: flex;
+        height: 100px;
+        height: 100%;
+        flex-direction: column;
+        flex-grow: 1;
+        .categories{
+            display: flex;
+            flex-direction: row;
+            height: 100px;
+            width: 100%;
+            .categories__part{
+                height: 100px;
+                
+            }
+        }
+        .boosts{
+            display: flex;
+            flex-direction: column;
+            overflow-y: scroll;
+            width: 100%;
+            max-height:100%;
+            background-color: aqua;
+            .boosts__chunk{
+                display: block;
+                background-color: rgb(149, 93, 93);
+                width: 100%;
+                min-height: 13vw;
+                border: 3px solid black;
+            }
+        }
     }
     
 }

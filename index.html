@@ -14,19 +14,54 @@
     <main>
         <div class="clicker-menu">
             <div class="clicker-menu__peach">
-                <img src="/img/svg/peach.svg" alt="">
+                <img id="peach" src="/img/svg/peach.svg" alt="">
             </div>
         </div>
         <div class="upgrade-menu">
-            
+            <div class="categories">
+                <div class="categories__part" id="first-categories" style="background-color: blueviolet;"><p>One</p></div>
+                <div class="categories__part"  id = "second-categories"style="background-color: rgb(255, 255, 0);"><p>Two</p></div>
+                <div class="categories__part" id="third-categories" style="background-color: cornflowerblue;"><p>Three</p></div>
+            </div>
+            <div class="boosts" id="first-block" style="background-color: blueviolet; display: flex;">
+                <div class="boosts__chunk">
+                    <h1>first</h1>
+                </div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+            </div>
+            <div class="boosts" id="second-block" style="background-color: rgb(255, 255, 0); display: none;">
+                <div class="boosts__chunk">
+                    <h2>second</h2>
+                </div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+            </div>
+            <div class="boosts" id="third-block" style="background-color: cornflowerblue; display: none;">
+                <div class="boosts__chunk">
+                    <h3>third</h3>
+                </div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+                <div class="boosts__chunk"></div>
+            </div>
         </div>
     </main>
-
-
-
+    <script src="/components/header/header.js"></script>
+    <script src="/components/main/main.js"></script>
+    <script src="/components/footer/footer.js"></script>
 </body>
 
-<script src="/components/header/header.js"></script>
-<script src="/components/content/content.js"></script>
-<script src="/components/footer/footer.js"></script>
+
 </html>
