@@ -1,31 +1,28 @@
-header {
-  height: 10vh;
-  width: 100%;
-  background-color: blue;
-}
-
 @keyframes rotatePeach {
   from {
     transform: rotate(360deg);
   }
 }
-@keyframes shake {
-  0% {
-    transform: rotate(10deg);
-  }
-  25% {
-    transform: rotate(100deg);
-  }
-  50% {
-    transform: rotate(0eg);
-  }
-  75% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+.header {
+  width: 100%;
+  display: flex;
+  height: 10vh;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 15px 0px;
 }
+.header__money {
+  display: flex;
+}
+.header__money .money__title {
+  font-size: 25px;
+}
+.header__money .money__svg {
+  width: 25px;
+  height: 25px;
+  fill: aqua;
+}
+
 main {
   width: 100%;
   height: 90vh;
@@ -41,7 +38,7 @@ main .clicker-menu {
   display: flex;
   flex-grow: 1;
 }
-main .clicker-menu .clicker-menu__peach {
+main .clicker-menu__peach {
   width: 100%;
   background-color: green;
   margin: auto;
@@ -73,8 +70,16 @@ main .upgrade-menu .categories {
   height: 100px;
   width: 100%;
 }
-main .upgrade-menu .categories .categories__part {
+main .upgrade-menu .categories__part {
   height: 100px;
+  display: flex;
+  padding: 10px 0px 5px 0px;
+}
+main .upgrade-menu .categories__part svg {
+  height: 75px;
+  width: 75px;
+  fill: 3;
+  margin: 0 auto;
 }
 main .upgrade-menu .boosts {
   display: flex;
@@ -85,9 +90,34 @@ main .upgrade-menu .boosts {
   background-color: aqua;
 }
 main .upgrade-menu .boosts .boosts__chunk {
-  display: block;
+  display: flex;
   background-color: rgb(149, 93, 93);
   width: 100%;
   min-height: 13vw;
   border: 3px solid black;
+  flex-direction: row;
+}
+main .upgrade-menu .boosts .boosts__chunk__logo {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+main .upgrade-menu .boosts .boosts__chunk__logo .logo__title {
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+  justify-content: center;
+}
+main .upgrade-menu .boosts .boosts__chunk__logo .logo__svg {
+  width: 60px;
+  height: 70%;
+  justify-content: center;
+  margin: 0 auto;
+}
+main .upgrade-menu .boosts .boosts__chunk__logo .logo__svg svg {
+  width: 60px;
+  height: 100%;
+}
+main .upgrade-menu .boosts .boosts__chunk__price {
+  height: 100%;
 }

@@ -4,13 +4,26 @@
    }
 
 }
-@keyframes shake {
-    0% { transform: rotate(10deg); }
-    25% { transform: rotate(100deg); }
-    50% { transform: rotate(0eg); }
-    75% { transform: rotate(-5deg); }
-    100% { transform: rotate(0deg); }
-  }
+.header{
+    width: 100%;
+    display: flex;
+    height: 10vh;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 15px 0px;
+    &__money{
+        display: flex;
+
+        .money__title{
+            font-size: 25px;
+        }
+        .money__svg{
+            width: 25px;
+            height: 25px;
+            fill: aqua;
+        }
+    }
+}
 main{
     width: 100%;
     height: 90vh;
@@ -24,7 +37,7 @@ main{
     .clicker-menu{
         display: flex;
         flex-grow: 1;
-        .clicker-menu__peach{
+        &__peach{
             width: 100%;
             background-color: green;
             margin:auto;
@@ -56,8 +69,16 @@ main{
             flex-direction: row;
             height: 100px;
             width: 100%;
-            .categories__part{
+            &__part{
                 height: 100px;
+                display: flex;
+                padding: 10px 0px 5px 0px;
+                svg{
+                    height: 75px;
+                    width: 75px;
+                    fill: green($color: #c00303);   
+                    margin: 0 auto;
+                }
                 
             }
         }
@@ -69,11 +90,37 @@ main{
             max-height:100%;
             background-color: aqua;
             .boosts__chunk{
-                display: block;
+                display: flex;
                 background-color: rgb(149, 93, 93);
                 width: 100%;
                 min-height: 13vw;
                 border: 3px solid black;
+                flex-direction: row;
+                &__logo{
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    .logo__title{
+                        font-size: 20px;
+                        font-weight: 900;
+                        text-align: center;
+                        justify-content: center;
+                    }
+                    .logo__svg{
+                        width: 60px;
+                        height: 70%;
+                        justify-content: center;
+                        margin: 0 auto;
+                        svg{
+                            width: 60px;
+                            height:100%;
+                        }
+                    }
+                }
+                &__price{
+
+                    height: 100%;
+                }
             }
         }
     }
