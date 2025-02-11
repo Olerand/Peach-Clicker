@@ -30,10 +30,6 @@ main{
     background-color: aqua;
     display: flex;
     justify-content: space-between;
-    div{
-        width: 49%;
-        background-color: rgb(199, 38, 38);
-    }
     .clicker-menu{
         display: flex;
         flex-grow: 1;
@@ -47,8 +43,8 @@ main{
             flex-grow: 1;
         }
         .clicker-menu__peach img{
-            width:200px;
-            height: 200px;
+            width:25vw;
+            height: 25vh;
             display: flex;
             margin: auto;
             animation-name: rotatePeach;
@@ -60,10 +56,9 @@ main{
     }
     .upgrade-menu{
         display: flex;
-        height: 100px;
         height: 100%;
         flex-direction: column;
-        flex-grow: 1;
+        width: 50%;
         .categories{
             display: flex;
             flex-direction: row;
@@ -71,6 +66,7 @@ main{
             width: 100%;
             &__part{
                 height: 100px;
+                width: 100%;
                 display: flex;
                 padding: 10px 0px 5px 0px;
                 svg{
@@ -89,38 +85,77 @@ main{
             width: 100%;
             max-height:100%;
             background-color: aqua;
-            .boosts__chunk{
+            &__chunk{
                 display: flex;
                 background-color: rgb(149, 93, 93);
                 width: 100%;
                 min-height: 13vw;
                 border: 3px solid black;
                 flex-direction: row;
+                box-sizing: border-box;
+      
+                
+                &__price{
+                    width: 60%;
+                    height: 100%;
+                    background-color: rgb(80, 217, 0);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    gap: 20px 0px;
+                    .price__wrapper{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        .price-title{
+                            font-size: 50px;
+                        }
+                        .price-svg{
+                            width: 50px;
+                            height: 50px;
+                        }
+                    }
+                }
+                &__button{
+                    width: 200px;
+                    height: 50px;
+                    font-size: 25px;
+                    border-radius: 5px;
+                    background-color: bisque;
+                    transition:  background-color 0.5s ease-in-out;
+                   &:hover{
+                    background-color: #c00303;
+                   }
+                }
+               
+
                 &__logo{
                     display: flex;
                     flex-direction: column;
                     height: 100%;
+                    width: 40%;
+                    background-color: red;
+
                     .logo__title{
-                        font-size: 20px;
+                        font-size: 30px;
                         font-weight: 900;
                         text-align: center;
                         justify-content: center;
                     }
                     .logo__svg{
-                        width: 60px;
+                        width: 160px;
                         height: 70%;
-                        justify-content: center;
                         margin: 0 auto;
                         svg{
-                            width: 60px;
+                            width: 150px;
                             height:100%;
+                            margin: 0 auto;
                         }
                     }
                 }
-                &__price{
-
-                    height: 100%;
-                }
+               
             }
         }
     }

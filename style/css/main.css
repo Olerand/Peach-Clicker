@@ -30,10 +30,6 @@ main {
   display: flex;
   justify-content: space-between;
 }
-main div {
-  width: 49%;
-  background-color: rgb(199, 38, 38);
-}
 main .clicker-menu {
   display: flex;
   flex-grow: 1;
@@ -48,8 +44,8 @@ main .clicker-menu__peach {
   flex-grow: 1;
 }
 main .clicker-menu .clicker-menu__peach img {
-  width: 200px;
-  height: 200px;
+  width: 25vw;
+  height: 25vh;
   display: flex;
   margin: auto;
   animation-name: rotatePeach;
@@ -59,10 +55,9 @@ main .clicker-menu .clicker-menu__peach img {
 }
 main .upgrade-menu {
   display: flex;
-  height: 100px;
   height: 100%;
   flex-direction: column;
-  flex-grow: 1;
+  width: 50%;
 }
 main .upgrade-menu .categories {
   display: flex;
@@ -72,6 +67,7 @@ main .upgrade-menu .categories {
 }
 main .upgrade-menu .categories__part {
   height: 100px;
+  width: 100%;
   display: flex;
   padding: 10px 0px 5px 0px;
 }
@@ -89,35 +85,69 @@ main .upgrade-menu .boosts {
   max-height: 100%;
   background-color: aqua;
 }
-main .upgrade-menu .boosts .boosts__chunk {
+main .upgrade-menu .boosts__chunk {
   display: flex;
   background-color: rgb(149, 93, 93);
   width: 100%;
   min-height: 13vw;
   border: 3px solid black;
   flex-direction: row;
+  box-sizing: border-box;
 }
-main .upgrade-menu .boosts .boosts__chunk__logo {
+main .upgrade-menu .boosts__chunk__price {
+  width: 60%;
+  height: 100%;
+  background-color: rgb(80, 217, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px 0px;
+}
+main .upgrade-menu .boosts__chunk__price .price__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+main .upgrade-menu .boosts__chunk__price .price__wrapper .price-title {
+  font-size: 50px;
+}
+main .upgrade-menu .boosts__chunk__price .price__wrapper .price-svg {
+  width: 50px;
+  height: 50px;
+}
+main .upgrade-menu .boosts__chunk__button {
+  width: 200px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: 5px;
+  background-color: bisque;
+  transition: background-color 0.5s ease-in-out;
+}
+main .upgrade-menu .boosts__chunk__button:hover {
+  background-color: #c00303;
+}
+main .upgrade-menu .boosts__chunk__logo {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 40%;
+  background-color: red;
 }
-main .upgrade-menu .boosts .boosts__chunk__logo .logo__title {
-  font-size: 20px;
+main .upgrade-menu .boosts__chunk__logo .logo__title {
+  font-size: 30px;
   font-weight: 900;
   text-align: center;
   justify-content: center;
 }
-main .upgrade-menu .boosts .boosts__chunk__logo .logo__svg {
-  width: 60px;
+main .upgrade-menu .boosts__chunk__logo .logo__svg {
+  width: 160px;
   height: 70%;
-  justify-content: center;
   margin: 0 auto;
 }
-main .upgrade-menu .boosts .boosts__chunk__logo .logo__svg svg {
-  width: 60px;
+main .upgrade-menu .boosts__chunk__logo .logo__svg svg {
+  width: 150px;
   height: 100%;
-}
-main .upgrade-menu .boosts .boosts__chunk__price {
-  height: 100%;
+  margin: 0 auto;
 }
