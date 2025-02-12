@@ -25,5 +25,21 @@
             </button>
         </div>
     </div>
+    <script>
+        document.getElementById("buy-button").onclick = (event) =>{
+    console.log("wow")
+    const power = event.target.parentElement.querySelector(".power").textContent
+    const price = event.target.parentElement.querySelector(".price__wrapper").querySelector(".price-title").textContent
+    console.log(power,price)
+    if(Number(localStorage.money) >= price){
+        localStorage.money = Number(localStorage.money) - Number(price)
+        localStorage.click_cost = Number(localStorage.click_cost) + Number(power)
+    }
+    
+
+
+    
+}
+    </script>
 </body>
 </html>
