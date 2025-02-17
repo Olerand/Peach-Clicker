@@ -75,7 +75,16 @@
     transform: scale(1);
   }
 }
+@keyframes onset {
+  0% {
+    transform: translateY(150%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 body {
+  font-family: "AristaPro";
   background-image: url(/img/background/back-main.png);
   background-size: cover;
 }
@@ -90,11 +99,13 @@ body {
 }
 .header__money {
   display: flex;
+  height: 2em;
   border: 2px solid;
   border-radius: 10px;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(90deg, rgba(131, 58, 180, 0.5) 0%, rgba(253, 29, 29, 0.5) 50%, rgba(252, 176, 69, 0.5) 100%);
   backface-visibility: 75%;
-  margin-top: 10px;
 }
 .header__money .money__title {
   font-size: 25px;
@@ -144,7 +155,8 @@ main .clicker-menu__progress-bar {
   border-radius: 25px;
   border: 4px solid rgb(252, 226, 226);
   overflow: hidden;
-  display: flex;
+  transform: translateX(-150%);
+  display: none;
 }
 main .clicker-menu__progress-bar .progress-bar__fill {
   width: 0%;
@@ -266,14 +278,20 @@ main .upgrade-menu .boosts__chunk__price__button {
   justify-content: center;
   align-items: center;
 }
-main .upgrade-menu .boosts__chunk__price__button button {
+main .upgrade-menu .boosts__chunk__price__button .button-achiev {
   width: 75px;
   height: 75px;
-  border-radius: 25px;
+  border-radius: 15px;
 }
-main .upgrade-menu .boosts__chunk__price__button button:hover {
+main .upgrade-menu .boosts__chunk__price__button .button-achiev:hover {
   transition: 0.5s linear;
   background-color: #c00303;
+}
+main .upgrade-menu .boosts__chunk__price__button img {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  margin: 0 auto;
 }
 main .upgrade-menu .boosts__chunk__logo {
   display: flex;
@@ -291,9 +309,14 @@ main .upgrade-menu .boosts__chunk__logo .logo__svg {
   border-radius: 50px;
   border: 2px solid white;
 }
-main .upgrade-menu .boosts__chunk__logo .logo__svg svg {
+main .upgrade-menu .boosts__chunk__logo .logo__svg img {
   display: block;
   width: 80%;
   height: 100%;
   margin: 0 auto;
+}
+
+@font-face {
+  font-family: "AristaPro";
+  src: url(/fonts/AristaPro-Regular.ttf);
 }

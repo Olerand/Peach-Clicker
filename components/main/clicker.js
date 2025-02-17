@@ -1,4 +1,14 @@
-import {header__money,header__passiveIncome,header__clickCost} from './main.js'
+import {header__money,header__passiveIncome,header__clickCost, progress__bar} from './main.js'
+window.onload = function () {
+  console.log("Страница полностью загружена!");
+
+  if (localStorage.getItem("fill_bar") === "true") {
+    progress__bar.style.display = "flex";
+  } else {
+    progress__bar.style.display = "none";
+  }  
+  localStorage.coef_click = 1
+};
 let level = 0; 
 function parseCompactNumber(str) {
   const multipliers = {
@@ -7,7 +17,7 @@ function parseCompactNumber(str) {
     E: 1e18, // Экса
     P: 1e15, // Пета
     T: 1e12, // Тера
-    B: 1e9,  // Альтернативный вариант для миллиарда
+    B: 1e9,  // Миллиард
     M: 1e6,  // Миллион
     K: 1e3,  // Тысяча
   };
@@ -28,17 +38,15 @@ function coefBoost(){
   },10000)
   }}
   function fillBar(){
-  if(localStorage.fill_bar){
     const fill = document.getElementById("fill")
     if (level < 100) {
       level += 5; 
       fill.style.width = level + "%"; 
   }
-  }
 }
   setInterval(() => {
     if (level > 0) {
-      level = level - 4; 
+      level = level - 3; 
       fill.style.width = level + "%";
       fill.style.transition = "width 1s linear"
     }
@@ -55,15 +63,16 @@ function clickCostUp(x,y){
   div.style.top = y+"px"
   place.appendChild(div)
   setTimeout(() => {
-    div.remove(); // Удаляем после завершения анимации
+    div.remove(); 
   }, 1000);
 
 }
 document.getElementById("div-peach").onclick = (event) =>{
   localStorage.money = Number(localStorage.money) + (Number(localStorage.click_cost)*Number(localStorage.coef_click));
-  fillBar()
   clickCostUp(event.clientX,event.clientY)
   event.target.style.animation = "peach-scale 0.05s"
+  if(localStorage.getItem("fill_bar") === "true"){
+    fillBar()}
   setTimeout(()=>{
     event.target.style.animation = ""
   },100)
@@ -85,6 +94,30 @@ document.querySelectorAll(".click-buy").forEach(button => {
 
   };
 });
+document.querySelectorAll(".button-achiev").forEach(button => {
+  button.onclick = (event) => {
+    const name = event.target.closest('.button-achiev')
+    const achiev = name.id
+    switch(achiev){
+      case "Fill-Bar":{
+        if(Number(localStorage.money)>=100000 && localStorage.getItem("fill_bar") === "false"){
+          localStorage.money = Number(localStorage.money) - 100000
+          localStorage.fill_bar = true;
+          progress__bar.style.display = "flex";
+        }else{
+          name.style.animation = "glitch 0.3s";
+          setTimeout(()=>{
+            name.style.animation = ""
+          },300)
+        }
+        break
+      }
+
+    }
+    
+
+  }  
+});
 document.querySelectorAll(".income-buy").forEach(button => {
   button.onclick = (event) => {
     const power = parseCompactNumber(event.target.parentElement.querySelector(".power").textContent)
@@ -99,10 +132,6 @@ const formatter = new Intl.NumberFormat("en-US", {
   notation: "compact",
   compactDisplay: "short",
 });
-
-
-
-
 
 
 
