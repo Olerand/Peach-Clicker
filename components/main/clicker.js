@@ -1,7 +1,7 @@
 import {header__money,header__passiveIncome,header__clickCost, progress__bar} from './main.js'
 window.onload = function () {
   console.log("Страница полностью загружена!");
-
+  console.log(localStorage.getItem("fill_bar") === "true")
   if (localStorage.getItem("fill_bar") === "true") {
     progress__bar.style.display = "flex";
   } else {

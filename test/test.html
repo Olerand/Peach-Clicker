@@ -1,59 +1,110 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grid Layout</title>
-    <style>
-        .container {
-            display: grid;
-            grid-template-columns: 50% 50%;
-            grid-template-rows: 50% 50%;
-            width: 100vw;
-            height: 100vh;
-        }
+<title>Fill Bar</title>
+<style>
+body {
+  font-family: sans-serif;
+  background-color: #f0f0f0;
+}
 
-        .left-top, .left-bottom {
-            width: 100%;
-            height: 100%;
-        }
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: 50px auto;
+  overflow: hidden; /* Для скрытия переполнения шкалы прогресса */
+}
 
-        .right {
-            grid-column: 2; /* Помещаем в правый столбец */
-            grid-row: 1 / span 2; /* Растягиваем на 2 строки */
-            width: 100%;
-            height: 100%;
-            background-color: lightcoral;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
-        .left-top {
-            background-color: lightblue;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
+.card-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
 
-        .left-bottom {
-            background-color: lightgreen;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-    </style>
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-content {
+  margin-bottom: 20px;
+}
+
+.card-text {
+  font-size: 16px;
+  color: #666;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-progress {
+  width: 150px;
+  height: 20px;
+  background-color: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-progress-bar {
+  width: 75%; /* Примерное значение */
+  height: 100%;
+  background-color: #ffcc00; /* Примерный цвет */
+  border-radius: 10px;
+}
+
+.card-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff9900; /* Примерный цвет */
+}
+
+.card-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Плавное изменение цвета */
+}
+
+.card-button:hover {
+  background-color: #3e8e41;
+}
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="left-top">Левый верх</div>
-        <div class="left-bottom">Левый низ</div>
-        <div class="right">Правый</div>
+<div class="card">
+  <div class="card-header">
+    <img class="card-icon" src="/img/svg/award-star.svg" alt="Icon">
+    <h2 class="card-title">Fill Bar</h2>
+  </div>
+  <div class="card-content">
+    <p class="card-text">Улучшайте свою силу клика, собирая бонусы!</p>
+  </div>
+  <div class="card-footer">
+    <div class="card-progress">
+      <div class="card-progress-bar"></div>
     </div>
+    <span class="card-value">100K</span>
+    <button class="card-button">Купить</button>
+  </div>
+</div>
 
 </body>
 </html>
