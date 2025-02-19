@@ -58,19 +58,15 @@
         transform: scale(1.10);
     }
     37%{
-        transform: scale(1.15);
+        transform: scale(1.1);
 
     }
-    50%{
-        transform: scale(1.20);
-    }
+
     62%{
-        transform: scale(1.15);
+        transform: scale(1.11);
 
     }
-    75%{
-        transform: scale(1.10);
-    }
+
     82%{
         transform: scale(1.05);
     }
@@ -104,12 +100,12 @@ body{
         background: linear-gradient(90deg, rgba(131,58,180,0.5) 0%, rgba(253,29,29,0.5) 50%, rgba(252,176,69,0.5) 100%);
         backface-visibility: 75%;
 
-        .money__title{
+        &-title{
             font-size: 25px;
             justify-content: center;
             align-items: center;
         }
-        .money__svg{
+        &-svg{
             width: 25px;
             height: 25px;
         }
@@ -120,7 +116,7 @@ main{
     height: 90vh;
     display: flex;
     justify-content: space-between;
-    .clicker-menu{
+    .clicker{
         display: flex;
         width: 50%;
         flex-direction: column;
@@ -144,7 +140,7 @@ main{
                 pointer-events: none;
             }
         }
-        &__progress-bar{
+        &__progressBar{
             width: 90%;
             height: 60px;
             margin: 0 auto;
@@ -154,14 +150,14 @@ main{
             display: none;
             animation: onset 1s linear;            
 
-            .progress-bar__fill{
+            &__fill{
                 width: 0%;
                 height: 100%;
                 background: linear-gradient(to right, rgb(233, 73, 5), rgb(254, 204, 1));
                 border-radius: 25px;
                 transition: width 0.2s linear;
             }
-            .progress-bar__coef{
+            &__coef{
                 font-size: 3em;
                 display: flex;
                 justify-content: end;
@@ -170,23 +166,24 @@ main{
 
             }
         }
-        .clicker-menu__peach img{
+        .clicker__peach img{
             width:25vw;
             height: 25vh;
             display: flex;
             margin: auto;
         }
     }
-    .upgrade-menu{
+    .categories{
         display: flex;
         height: 100%;
         flex-direction: column;
         width: 50%;
-        .categories{
+        &__inner{
             display: flex;
             flex-direction: row;
             height: 100px;
             width: 100%;
+            }
             &__part{
                 height: 100px;
                 width: 100%;
@@ -199,134 +196,121 @@ main{
                     margin: 0 auto;
                 }
                 
-            }
         }
-        .boosts{
+        &__boost{
             display: flex;
             flex-direction: column;
             overflow-y: scroll;
+            justify-content: space-around;
             width: 100%;
             max-height:100%;
-            &__chunk{
-                display: flex;
-                width: 100%;
-                min-height: 13vw;
-                border: 3px solid black;
-                flex-direction: row;
-                background-color: white;
-                &__price{
-                    width: 80%;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: row;
-                    gap: 20px 0px;
-                    &__info{
-                        width: 80%;
-                        height: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        padding-top: 25px;
-                        .price__title{
-                            width: 100%;
-                            height: 50%;
-                            display: flex;
-                            flex-direction: row;
-                            text-align: center;
-
-                            justify-content: space-around;
-
-                            .price__wrapper{
-                                display: flex;
-                                flex-direction: row;
-                                h1{
-                                    display: flex;
-                                    font-size: 40px;
-                                    font-weight: 900;
-                                    text-align: center;
-                                    justify-content: center;
-                                }
-                                svg{
-                                    height: 40px;
-                                    width: 40px;
-                                }
-                            }
-                            h1{
-                                font-size: 40px;
-                                font-weight: 900;
-                   
-                            }
-                          
-                        }
-                        .price__description{
-                            width: 100%;
-                            height: 50%;
-                            display: flex;
-                            justify-content: center;
-                            text-align: center;
-                            padding-top: 25px;
-                            p{
-                                display: flex;
-                                justify-content: center;
-                                text-align: center;
-                                font-size: 15px;
-                            }
-                        }
-                    }
-                    &__button{
-                        width: 20%;
-                        height: 100%;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        .button-achiev{
-                            width: 75px;
-                            height: 75px;
-                            border-radius: 15px;
-                        }
-                    
-                        .button-achiev:hover{
-                            transition: 0.5s linear;
-                            background-color: #c00303;
-                        }
-                        img{
-                            width: 50px;
-                            height: 50px;
-                            display: flex;
-                            margin: 0 auto;
-                        }
-                    }
-                  
-                }
-               
-               
-
-                &__logo{
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    height: 100%;
-                    width: 30%;
-                    background-color: white;
-
-                    .logo__svg{
-                        width: 150px;
-                        height: 80%;
-                        margin: 0 auto;
-                        background-color: bisque;
-                        border-radius: 50px;
-                        border: 2px solid white;
-                        img{
-                            display: block;
-                            width: 80%;
-                            height:100%;
-                            margin: 0 auto;
-
-                        }
-                    }
-                }
-               
-            }
+            gap: 2px;
         }
     }
     
+    .card{
+        background-color: bisque;
+        width: 100%;
+        min-height: 13vw;
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;
+        border-radius: 5px;
+        &__image{
+            width: 25%;
+            height: 100%;
+            display: flex;
+            &-wrapper{
+                display: block;
+                margin:  auto;
+                width: 80%;
+                height: 80%;
+                border-radius: 25px;
+                display: flex;
+                background-color: coral;
+                padding: 10px;
+                box-shadow: 3px 3px 10px black;
+                img{
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+
+
+                }
+            }
+        }
+        &__main{
+            width: 60%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            &-title{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+            }
+            &-name{
+                font-size: 50px;
+                margin-right:auto;
+                display: flex;
+
+            }
+            &-price{
+                font-size: 50px;
+            }
+            &-peach{
+                display: flex;
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                vertical-align: middle;
+            }
+            &-description{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0px 15px;
+                width: 100%;
+                p{
+                    font-size: 20px;
+                    color:rgb(84, 78, 78);
+                    align-items: center;
+                }
+            }
+
+        }
+        &__buy{
+            width: 15%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &-button{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 75px;
+                height: 75px;
+                border-radius: 25px;
+                background-color: coral;
+                box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+                transition: background-color 0.3s ease-in-out;
+
+            }
+            &-button:hover{
+                background-color:rgb(239, 83, 26);
+
+
+            }
+            &-button:active{
+                box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.5);
+            }
+            &-image{
+                width: 80%;
+                height: 80%;
+            }
+        }
+    }
 }

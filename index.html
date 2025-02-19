@@ -12,30 +12,27 @@
 <body>
     <header  id = "header" class="header">
         <div class="header__money" id="header__money">
-
         </div>
         <div class="header__money" id="header__click-cost">
-
         </div>
         <div class="header__money" id="header__passive-income"> 
-
         </div>
     </header>
     <main>
-        <div class="clicker-menu" id="test">
-            <div class="clicker-menu__peach" id="div-peach">
+        <div class="clicker" id="test">
+            <div class="clicker__peach" id="div-peach">
                 <div>
                     <img id="peach" src="/img/svg/peach.svg" alt="" >
                 </div>
             </div>
-            <div class="clicker-menu__progress-bar" id="progress__bar">
-                <div class="progress-bar__fill" id="fill">
-                    <h1 class="progress-bar__coef">X2</h1>
+            <div class="progress-bar" id="progress__bar">
+                <div class="progressBar__fill" id="fill">
+                    <h1 class="progressBar__coef">X2</h1>
                 </div>
             </div>
         </div>
-        <div class="upgrade-menu">
-            <div class="categories">
+        <div class="categories">
+            <div class="categories__inner">
                 <div class="categories__part" id="first-categories">
                     <img src="/img/svg/hand-click.svg" alt="">
                 </div>
@@ -46,37 +43,121 @@
                     <img src="/img/svg/award-star-outline.svg" alt="">    
                 </div>
             </div>
-            <div class="boosts" id="first-block" style="background-color: blueviolet; display: flex;">
+            <div class="categories__boost" id="first-block" style="background-color: blueviolet; display: flex;">
                 
             </div>
-            <div class="boosts" id="second-block" style="background-color: rgb(255, 255, 0); display: none;">
+            <div class="categories__boost" id="second-block" style="background-color: rgb(255, 255, 0); display: none;">
                 
             </div>
-            <div class="boosts" id="third-block">
-                <div class="boosts__chunk">
-                    <div class="boosts__chunk__logo">
-                        <div class="logo__svg">
+            <div class="categories__boost" id="third-block">
+                <div class="card">
+                    <div class="card__image">
+                        <div class="card__image-wrapper">
                             <img src="/img/svg/fill_bar.png" alt="">
                         </div>
                     </div>
-                    <div class="boosts__chunk__price">
-                        <div class="boosts__chunk__price__info">
-                            <div class="price__title">
-                                <h1>Fill Bar</h1>
-                                <div class="price__wrapper">
-                                    <h1>100K</h1>
-                                    <svg class= "price-svg" 
-                                    xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 48 48"><g fill="orange" stroke="currentColor" stroke-width="4"><path stroke-linejoin="round" d="M10.077 13.431c4.97-5.56 13.61-3.116 16.923-1.43c1.657-.633 6.197-1.358 9.18.664c3.727 2.528 8.423 9.24 4.074 18.719C36.775 38.968 27.69 42.157 24.376 43c-2.485-1.053-7.946-3.168-13.77-8.448c-5.28-4.788-6.741-14.169-.529-21.12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M27 12c-1.924.75-5.772 2.25-7.87 6.75c-2.256 4.836-.525 9 0 11.25"/><path stroke-linecap="round" d="M21 4c.333.167 2.5.5 3 2.5c.437 1.749-.333 2.833-.5 4"/><path d="M28.479 11.329a1.477 1.477 0 0 1-1.416-1.808c.27-1.287.882-3.044 2.267-4.129c1.384-1.084 3.236-1.259 4.55-1.213a1.477 1.477 0 0 1 1.417 1.807c-.27 1.288-.883 3.045-2.267 4.13c-1.384 1.084-3.236 1.258-4.551 1.213Z"/></g></svg>
-                                </div>
-                                </div>
-
-                            <div class="price__description">
-                                <p>Соберите из остатков соковыжималки шкалу мощности и наполняйте ёё каждый раз получая бонус Х2 к силе клика!</p>
-                            </div>
+                    <div class="card__main">
+                        <div class="card__main-title">
+                            <h1 class="card__main-name">Fill Bar</h1>
+                            <h1 class="card__main-price">100K</h1>
+                            <img class="card__main-peach" src="/img/svg/money.svg" alt="Peach-money">
+                             </div>
+                         <div class="card__main-description">
+                            <p>Соберите из остатков соковыжималки шкалу мощности и наполняйте её каждый раз, получая бонус Х2 к силе клика!</p>
                         </div>
-                        <div class="boosts__chunk__price__button">
-                            <button id="Fill-Bar" class="button-achiev"><img src="/img/svg/basket.svg" alt=""></button>
+                    </div>
+                    <div class="card__buy">
+                        <button id="Fill-Bar" class="card__buy-button">
+                        <img class="card__buy-image" src="/img/svg/cart.png" alt="">
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__image">
+                        <div class="card__image-wrapper">
+                            <img src="/img/svg/double-click-svgrepo-com.svg" alt="">
                         </div>
+                    </div>
+                    <div class="card__main">
+                        <div class="card__main-title">
+                            <h1 class="card__main-name">Double Click</h1>
+                            <h1 class="card__main-price">10M</h1>
+                            <img class="card__main-peach" src="/img/svg/money.svg" alt="Peach-money">
+                             </div>
+                         <div class="card__main-description">
+                            <p>Один клик хорошо,а два лучше!Получайте Х2 доход,просто за то,что вы есть.</p>
+                        </div>
+                    </div>
+                    <div class="card__buy">
+                        <button id="Fill-Bar" class="card__buy-button">
+                        <img class="card__buy-image" src="/img/svg/cart.png" alt="">
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__image">
+                        <div class="card__image-wrapper">
+                            <img src="/img/svg/treasure-chest-bold.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="card__main">
+                        <div class="card__main-title">
+                            <h1 class="card__main-name">P-Chest</h1>
+                            <h1 class="card__main-price">1B</h1>
+                            <img class="card__main-peach" src="/img/svg/money.svg" alt="Peach-money">
+                             </div>
+                         <div class="card__main-description">
+                            <p>Под деревом вы находите сундук,веющий приятным ароматом персика, что же в нём?</p>
+                        </div>
+                    </div>
+                    <div class="card__buy">
+                        <button id="Fill-Bar" class="card__buy-button">
+                        <img class="card__buy-image" src="/img/svg/cart.png" alt="">
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__image">
+                        <div class="card__image-wrapper">
+                            <img src="/img/svg/agriculture-worker.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="card__main">
+                        <div class="card__main-title">
+                            <h1 class="card__main-name">Farmer</h1>
+                            <h1 class="card__main-price">1B</h1>
+                            <img class="card__main-peach" src="/img/svg/money.svg" alt="Peach-money">
+                             </div>
+                         <div class="card__main-description">
+                            <p>Когда нанимаешь опытного фермера кликать вместо тебя по персику,что может пойти не так?</p>
+                        </div>
+                    </div>
+                    <div class="card__buy">
+                        <button id="Fill-Bar" class="card__buy-button">
+                        <img class="card__buy-image" src="/img/svg/cart.png" alt="">
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__image">
+                        <div class="card__image-wrapper">
+                            <img src="/img/svg/expansion.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="card__main">
+                        <div class="card__main-title">
+                            <h1 class="card__main-name">BBS</h1>
+                            <h1 class="card__main-price">1B</h1>
+                            <img class="card__main-peach" src="/img/svg/money.svg" alt="Peach-money">
+                             </div>
+                         <div class="card__main-description">
+                            <p>BBS!Bigger-Better-Stronger.Увеличьте ваш персик до размера Луны!</p>
+                        </div>
+                    </div>
+                    <div class="card__buy">
+                        <button id="Fill-Bar" class="card__buy-button">
+                        <img class="card__buy-image" src="/img/svg/cart.png" alt="">
+                        </button>
                     </div>
                 </div>
             </div>
@@ -85,7 +166,6 @@
     <script type="module" src="/components/main/variable.js"></script>
     <script type="module" src="/components/main/main.js"></script>
     <script type="module" src="/components/main/clicker.js"></script>
-
 </body>
 
 

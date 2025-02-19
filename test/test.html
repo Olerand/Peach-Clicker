@@ -1,110 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-<title>Fill Bar</title>
-<style>
-body {
-  font-family: sans-serif;
-  background-color: #f0f0f0;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tooltip при клике</title>
+    <style>
+        /* Основные стили */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
 
-.card {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  margin: 50px auto;
-  overflow: hidden; /* Для скрытия переполнения шкалы прогресса */
-}
+        /* Кнопка */
+        #buyButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            position: relative;
+        }
 
-.card-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
+        /* Стили для тултипа */
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translate(-50%, -10px);
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none;
+        }
 
-.card-icon {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-}
-
-.card-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
-
-.card-content {
-  margin-bottom: 20px;
-}
-
-.card-text {
-  font-size: 16px;
-  color: #666;
-}
-
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card-progress {
-  width: 150px;
-  height: 20px;
-  background-color: #eee;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.card-progress-bar {
-  width: 75%; /* Примерное значение */
-  height: 100%;
-  background-color: #ffcc00; /* Примерный цвет */
-  border-radius: 10px;
-}
-
-.card-value {
-  font-size: 20px;
-  font-weight: bold;
-  color: #ff9900; /* Примерный цвет */
-}
-
-.card-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Плавное изменение цвета */
-}
-
-.card-button:hover {
-  background-color: #3e8e41;
-}
-</style>
+        /* Показ тултипа */
+        .tooltip.show {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="card-header">
-    <img class="card-icon" src="/img/svg/award-star.svg" alt="Icon">
-    <h2 class="card-title">Fill Bar</h2>
-  </div>
-  <div class="card-content">
-    <p class="card-text">Улучшайте свою силу клика, собирая бонусы!</p>
-  </div>
-  <div class="card-footer">
-    <div class="card-progress">
-      <div class="card-progress-bar"></div>
-    </div>
-    <span class="card-value">100K</span>
-    <button class="card-button">Купить</button>
-  </div>
-</div>
+    <button title="PPAPAPAPA" id="buyButton">Купить</button>
+    <div id="tooltip" class="tooltip">Не хватает персиков!</div>
+
+    <script>
+        document.getElementById("buyButton").addEventListener("click", function (event) {
+            let hasPeaches = false; // Здесь проверка (изменить на true для скрытия)
+            let tooltip = document.getElementById("tooltip");
+            let button = event.target;
+
+            if (!hasPeaches) {
+                // Размещаем tooltip над кнопкой
+                let buttonRect = button.getBoundingClientRect();
+                tooltip.style.left = buttonRect.left + buttonRect.width / 2 + "px";
+                tooltip.style.top = buttonRect.top - 30 + "px";
+
+                // Показываем тултип
+                tooltip.classList.add("show");
+
+                // Авто-скрытие через 2 секунды
+                setTimeout(() => {
+                    tooltip.classList.remove("show");
+                }, 2000);
+            }
+        });
+    </script>
 
 </body>
 </html>
