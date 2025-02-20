@@ -78,6 +78,7 @@
     0% {transform: translateX(-150%);}
   100% {transform: translateY(0);}
 }
+
 body{
     font-family: 'AristaPro';
     background-image: url(/img/background/back-main.png);
@@ -140,7 +141,7 @@ main{
                 pointer-events: none;
             }
         }
-        &__progressBar{
+        .progressBar{
             width: 90%;
             height: 60px;
             margin: 0 auto;
@@ -277,9 +278,22 @@ main{
                     font-size: 20px;
                     color:rgb(84, 78, 78);
                     align-items: center;
+                    
                 }
             }
+            &-power{
+                color: white;
+                font-size: 30px;
+                font-weight: 900;
+                background-color: coral;
+                border-radius: 25px;
+                padding: 5px;
+                padding-top: 7px;
+                line-height: 50px;
+                
 
+
+            }
         }
         &__buy{
             width: 15%;

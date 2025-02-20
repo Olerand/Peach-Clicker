@@ -1,9 +1,10 @@
 import {header__money,header__passiveIncome,header__clickCost, progress__bar} from './main.js'
 window.onload = function () {
   console.log("Страница полностью загружена!");
-  console.log(localStorage.getItem("fill_bar") === "true")
+  console.log(localStorage.fill_bar)
   if (localStorage.getItem("fill_bar") === "true") {
     progress__bar.style.display = "flex";
+    document.getElementById("card__fill-bar").style.display = "none";
   } else {
     progress__bar.style.display = "none";
   }  
@@ -22,7 +23,7 @@ function parseCompactNumber(str) {
     K: 1e3,  // Тысяча
   };
   if(str.match(/[a-zA-Z]/)){
-    return parseFloat(str)*multipliers[str[str.length-1]]
+    return parseFloat(str) * multipliers[str[str.length-1]]
   }else{
     return parseFloat(str)
   }
@@ -33,15 +34,19 @@ function coefBoost(){
     boostOfClick = true
   localStorage.coef_click = Number(localStorage.coef_click)*2
   setTimeout(()=>{
-    localStorage.coef_click = Number(localStorage.coef_click)/2
-    boostOfClick = false
+    if(level>=99){
+      coefBoost()
+    }else{
+      boostOfClick = false
+      localStorage.coef_click = Number(localStorage.coef_click)/2
+    }
   },10000)
   }}
-  function fillBar(){
-    const fill = document.getElementById("fill")
-    if (level < 100) {
-      level += 5; 
-      fill.style.width = level + "%"; 
+function fillBar(){
+  const fill = document.getElementById("fill")
+  if (level < 100) {
+    level += 5; 
+    fill.style.width = level + "%"; 
   }
 }
   setInterval(() => {
@@ -54,6 +59,7 @@ function coefBoost(){
       coefBoost()
     }
   }, 500); 
+// fly numbers
 function clickCostUp(x,y){
   const place = document.getElementById("div-peach")
   const div = document.createElement('h1');
@@ -67,12 +73,14 @@ function clickCostUp(x,y){
   }, 1000);
 
 }
+
 function  glitchAnimation(event){
   event.target.style.animation = "glitch 0.3s";
   setTimeout(()=>{
     event.target.style.animation = ""
   },300)
 }
+// Click peach to make a lot of money
 document.getElementById("div-peach").onclick = (event) =>{
   localStorage.money = Number(localStorage.money) + (Number(localStorage.click_cost)*Number(localStorage.coef_click));
   clickCostUp(event.clientX,event.clientY)
@@ -84,10 +92,11 @@ document.getElementById("div-peach").onclick = (event) =>{
   },100)
 
 }
-document.querySelectorAll(".click-buy").forEach(button => {
+// Click-cost upgrading
+document.querySelectorAll(".card__buy-click").forEach(button => {
   button.onclick = (event) => {
-    const power = parseCompactNumber(event.target.parentElement.querySelector(".power").textContent)
-    const price = parseCompactNumber(event.target.parentElement.querySelector(".price__wrapper").querySelector(".price-title").textContent)
+    let price = parseCompactNumber(event.target.closest(".card").querySelector(".card__main-price").textContent)
+    let power = parseCompactNumber(event.target.closest(".card").querySelector(".card__main-power").textContent)
     if(Number(localStorage.money) >= price){
         localStorage.money = Number(localStorage.money) - Number(price)
         localStorage.click_cost = Number(localStorage.click_cost) + Number(power)
@@ -97,22 +106,21 @@ document.querySelectorAll(".click-buy").forEach(button => {
 
   };
 });
-document.querySelectorAll(".card__buy-button").forEach(button => {
+// Third categories
+document.querySelectorAll(".card__buy-achiev").forEach(button => {
   button.onclick = (event) => {
-    console.log(1)
-    const name = event.target.closest('.card__buy-button')
+    const name = event.target.closest('.card__buy-achiev')
     const achiev = name.id
+    console.log(name,achiev)
     switch(achiev){
       case "Fill-Bar":{
         if(Number(localStorage.money)>=100000 && localStorage.getItem("fill_bar") === "false"){
           localStorage.money = Number(localStorage.money) - 100000
           localStorage.fill_bar = true;
           progress__bar.style.display = "flex";
+          event.target.closest(".card").style.display = "none";
         }else{
-          name.style.animation = "glitch 0.3s";
-          setTimeout(()=>{
-            name.style.animation = ""
-          },300)
+          glitchAnimation()
         }
         break
       }
@@ -124,16 +132,20 @@ document.querySelectorAll(".card__buy-button").forEach(button => {
 
   }  
 });
+// Passive-income
 document.querySelectorAll(".income-buy").forEach(button => {
   button.onclick = (event) => {
-    const power = parseCompactNumber(event.target.parentElement.querySelector(".power").textContent)
-    const price = parseCompactNumber(event.target.parentElement.querySelector(".price__wrapper").querySelector(".price-title").textContent)
+    let price = parseCompactNumber(event.target.closest(".card").querySelector(".card__main-price").textContent)
+    let power = parseCompactNumber(event.target.closest(".card").querySelector(".card__main-power").textContent)
     if(Number(localStorage.money)>= Number(price)){
       localStorage.money = Number(localStorage.money) - Number(price)
       localStorage.passive_income_per_second =  Number(localStorage.passive_income_per_second) + Number(power)
+    }else{
+      glitchAnimation()
     }
   };
 });
+
 const formatter = new Intl.NumberFormat("en-US", {
   notation: "compact",
   compactDisplay: "short",
@@ -141,6 +153,7 @@ const formatter = new Intl.NumberFormat("en-US", {
 
 
 
+// Intervals
 setInterval(() => {
     header__money.innerHTML = `<h1 class = "header__money-title"> ${formatter.format(localStorage.money)}</h1>
     <svg class= "header__money-svg" 

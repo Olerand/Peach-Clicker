@@ -142,7 +142,7 @@ main .clicker__peach img {
   animation-timing-function: linear;
   pointer-events: none;
 }
-main .clicker__progressBar {
+main .clicker .progressBar {
   width: 90%;
   height: 60px;
   margin: 0 auto;
@@ -152,14 +152,14 @@ main .clicker__progressBar {
   display: none;
   animation: onset 1s linear;
 }
-main .clicker__progressBar__fill {
+main .clicker .progressBar__fill {
   width: 0%;
   height: 100%;
   background: linear-gradient(to right, rgb(233, 73, 5), rgb(254, 204, 1));
   border-radius: 25px;
   transition: width 0.2s linear;
 }
-main .clicker__progressBar__coef {
+main .clicker .progressBar__coef {
   font-size: 3em;
   display: flex;
   justify-content: end;
@@ -273,6 +273,16 @@ main .card__main-description p {
   font-size: 20px;
   color: rgb(84, 78, 78);
   align-items: center;
+}
+main .card__main-power {
+  color: white;
+  font-size: 30px;
+  font-weight: 900;
+  background-color: coral;
+  border-radius: 25px;
+  padding: 5px;
+  padding-top: 7px;
+  line-height: 50px;
 }
 main .card__buy {
   width: 15%;
