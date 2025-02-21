@@ -128,18 +128,22 @@ main{
             justify-content: center;
             align-items: center;
             .fly-numbers{
-                font-size: 25px;
+                font-size: 30px;
+                color: rgb(75, 72, 72);
                 position: absolute;
                 animation: opacityNone 1s linear;
                 pointer-events: none;
             }
             img{
+                width: 50px;
+                height: 50px;
                 animation-name: rotatePeach;
                 animation-duration: 3s;
                 animation-iteration-count: infinite;
                 animation-timing-function: linear;
                 pointer-events: none;
             }
+            
         }
         .progressBar{
             width: 90%;

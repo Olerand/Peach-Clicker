@@ -1,15 +1,42 @@
 import {header__money,header__passiveIncome,header__clickCost, progress__bar} from './main.js'
 window.onload = function () {
-  console.log("Страница полностью загружена!");
-  console.log(localStorage.fill_bar)
+  checkFillBar()
+  checkDoubleClick()
+  checkFarmer()
+  localStorage.coef_click = 1
+
+};
+
+function checkFarmer(){
+  if(localStorage.getItem("farmer") === "true"){
+    const element = document.getElementById("div-peach");
+    const event = new MouseEvent('click', {
+      clientX: 335, 
+      clientY: 335, 
+});
+    document.getElementById("Farmer").closest(".card").style.display = "none";
+    setInterval(()=>{
+      element.dispatchEvent(event);
+    },1000)
+  }else{
+    document.getElementById("Farmer").closest(".card").style.display = "flex";
+  }
+}
+function checkFillBar(){
   if (localStorage.getItem("fill_bar") === "true") {
     progress__bar.style.display = "flex";
     document.getElementById("card__fill-bar").style.display = "none";
   } else {
     progress__bar.style.display = "none";
   }  
-  localStorage.coef_click = 1
-};
+}
+function checkDoubleClick(){
+  if(localStorage.double_click == 2){
+    document.getElementById("Double Click").closest(".card").style.display = "none";
+  }else{
+    document.getElementById("Double Click").closest(".card").style.display = "flex";
+  }
+}
 let level = 0; 
 function parseCompactNumber(str) {
   const multipliers = {
@@ -28,20 +55,26 @@ function parseCompactNumber(str) {
     return parseFloat(str)
   }
 }
-let boostOfClick = false
-function coefBoost(){
-  if(!boostOfClick){
-    boostOfClick = true
-  localStorage.coef_click = Number(localStorage.coef_click)*2
-  setTimeout(()=>{
-    if(level>=99){
-      coefBoost()
-    }else{
-      boostOfClick = false
-      localStorage.coef_click = Number(localStorage.coef_click)/2
+let boostOfClick = false;
+let boostTimeout;
+function coefBoost() {
+  if (!boostOfClick) {
+    boostOfClick = true;
+    localStorage.coef_click = Number(localStorage.coef_click) * 2;
+    function checkLevel() {
+      if (level >= 100) {
+        clearTimeout(boostTimeout); 
+        boostTimeout = setTimeout(() => {
+          boostOfClick = false;
+          localStorage.coef_click = Number(localStorage.coef_click) / 2;
+          console.log("Boost removed");
+        }, 5000); 
+      }
     }
-  },10000)
-  }}
+    boostTimeout = setInterval(checkLevel, 1000);
+  }
+}
+
 function fillBar(){
   const fill = document.getElementById("fill")
   if (level < 100) {
@@ -49,7 +82,7 @@ function fillBar(){
     fill.style.width = level + "%"; 
   }
 }
-  setInterval(() => {
+setInterval(() => {
     if (level > 0) {
       level = level - 3; 
       fill.style.width = level + "%";
@@ -61,10 +94,11 @@ function fillBar(){
   }, 500); 
 // fly numbers
 function clickCostUp(x,y){
+  console.log(x,y)
   const place = document.getElementById("div-peach")
   const div = document.createElement('h1');
   div.classList.add("fly-numbers")
-  div.textContent = formatter.format(Number(localStorage.click_cost) * Number(localStorage.coef_click))
+  div.textContent = formatter.format(Number(localStorage.click_cost) * Number(localStorage.coef_click)*Number(localStorage.double_click))
   div.style.left = x+"px";
   div.style.top = y+"px"
   place.appendChild(div)
@@ -82,12 +116,18 @@ function  glitchAnimation(event){
 }
 // Click peach to make a lot of money
 document.getElementById("div-peach").onclick = (event) =>{
-  localStorage.money = Number(localStorage.money) + (Number(localStorage.click_cost)*Number(localStorage.coef_click));
+  localStorage.money = Number(localStorage.money) + (Number(localStorage.click_cost)*Number(localStorage.coef_click)*Number(localStorage.double_click));
+
+
+  new Promise(()=>{
+    event.target.style.animation = "peach-scale 0.01s"  
+  },2000)
   clickCostUp(event.clientX,event.clientY)
-  event.target.style.animation = "peach-scale 0.05s"
   if(localStorage.getItem("fill_bar") === "true"){
     fillBar()}
+  
   setTimeout(()=>{
+
     event.target.style.animation = ""
   },100)
 
@@ -111,21 +151,39 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
   button.onclick = (event) => {
     const name = event.target.closest('.card__buy-achiev')
     const achiev = name.id
-    console.log(name,achiev)
+    const price = parseCompactNumber(event.target.closest(".card").querySelector(".card__main-price").textContent)
+    const card = event.target.closest(".card")
     switch(achiev){
       case "Fill-Bar":{
-        if(Number(localStorage.money)>=100000 && localStorage.getItem("fill_bar") === "false"){
-          localStorage.money = Number(localStorage.money) - 100000
+        if(Number(localStorage.money)>=price && localStorage.getItem("fill_bar") === "false"){
+          localStorage.money = Number(localStorage.money) - price
           localStorage.fill_bar = true;
           progress__bar.style.display = "flex";
-          event.target.closest(".card").style.display = "none";
+          card.style.display = "none";
         }else{
-          glitchAnimation()
+          glitchAnimation(event)
         }
         break
       }
       case "Double Click":{
+        if(Number(localStorage.money)>=price && localStorage.double_click == 1){
+          localStorage.money = Number(localStorage.money) - price
+          localStorage.double_click = 2;
+          console.log(localStorage.double_click,"double")
+          card.style.display = "none";
+        }else{
+          glitchAnimation(event);
+        }
         break
+      }
+      case "Farmer":{
+        if(Number(localStorage.money)>=price && localStorage.getItem("farmer") === "false"){
+          localStorage.money = Number(localStorage.money) - price
+          localStorage.farmer = true;
+          card.style.display = "none";
+        }else{
+          glitchAnimation(event)
+        }
       }
     }
     
@@ -133,10 +191,11 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
   }  
 });
 // Passive-income
-document.querySelectorAll(".income-buy").forEach(button => {
+document.querySelectorAll(".card__buy-income").forEach(button => {
   button.onclick = (event) => {
     let price = parseCompactNumber(event.target.closest(".card").querySelector(".card__main-price").textContent)
     let power = parseCompactNumber(event.target.closest(".card").querySelector(".card__main-power").textContent)
+    console.log(price,power)
     if(Number(localStorage.money)>= Number(price)){
       localStorage.money = Number(localStorage.money) - Number(price)
       localStorage.passive_income_per_second =  Number(localStorage.passive_income_per_second) + Number(power)
@@ -158,7 +217,7 @@ setInterval(() => {
     header__money.innerHTML = `<h1 class = "header__money-title"> ${formatter.format(localStorage.money)}</h1>
     <svg class= "header__money-svg" 
     xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 48 48"><g fill="orange" stroke="currentColor" stroke-width="4"><path stroke-linejoin="round" d="M10.077 13.431c4.97-5.56 13.61-3.116 16.923-1.43c1.657-.633 6.197-1.358 9.18.664c3.727 2.528 8.423 9.24 4.074 18.719C36.775 38.968 27.69 42.157 24.376 43c-2.485-1.053-7.946-3.168-13.77-8.448c-5.28-4.788-6.741-14.169-.529-21.12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M27 12c-1.924.75-5.772 2.25-7.87 6.75c-2.256 4.836-.525 9 0 11.25"/><path stroke-linecap="round" d="M21 4c.333.167 2.5.5 3 2.5c.437 1.749-.333 2.833-.5 4"/><path d="M28.479 11.329a1.477 1.477 0 0 1-1.416-1.808c.27-1.287.882-3.044 2.267-4.129c1.384-1.084 3.236-1.259 4.55-1.213a1.477 1.477 0 0 1 1.417 1.807c-.27 1.288-.883 3.045-2.267 4.13c-1.384 1.084-3.236 1.258-4.551 1.213Z"/></g></svg>`;
-    header__clickCost.innerHTML = `<h1 class = "header__money-title">Сила клика:${formatter.format(Number(localStorage.click_cost)*Number(localStorage.coef_click))}</h1>
+    header__clickCost.innerHTML = `<h1 class = "header__money-title">Сила клика:${formatter.format(Number(localStorage.click_cost)*Number(localStorage.coef_click)*Number(localStorage.double_click))}</h1>
     <svg class= "header__money-svg" 
     xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 48 48"><g fill="orange" stroke="currentColor" stroke-width="4"><path stroke-linejoin="round" d="M10.077 13.431c4.97-5.56 13.61-3.116 16.923-1.43c1.657-.633 6.197-1.358 9.18.664c3.727 2.528 8.423 9.24 4.074 18.719C36.775 38.968 27.69 42.157 24.376 43c-2.485-1.053-7.946-3.168-13.77-8.448c-5.28-4.788-6.741-14.169-.529-21.12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M27 12c-1.924.75-5.772 2.25-7.87 6.75c-2.256 4.836-.525 9 0 11.25"/><path stroke-linecap="round" d="M21 4c.333.167 2.5.5 3 2.5c.437 1.749-.333 2.833-.5 4"/><path d="M28.479 11.329a1.477 1.477 0 0 1-1.416-1.808c.27-1.287.882-3.044 2.267-4.129c1.384-1.084 3.236-1.259 4.55-1.213a1.477 1.477 0 0 1 1.417 1.807c-.27 1.288-.883 3.045-2.267 4.13c-1.384 1.084-3.236 1.258-4.551 1.213Z"/></g></svg>`;
     header__passiveIncome.innerHTML = `<h1 class = "header__money-title">Пас.Доход:${formatter.format(localStorage.passive_income_per_second)}</h1>
@@ -170,5 +229,7 @@ setInterval(()=>{
   localStorage.money = Number(localStorage.money) + Number(localStorage.passive_income_per_second)
 
 },1000)
+
+
 
             
