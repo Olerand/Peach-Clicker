@@ -18,6 +18,7 @@ document.getElementById("third-categories").onclick = () => {
 const header__money = document.getElementById("header__money");
 const header__passiveIncome =  document.getElementById("header__passive-income")
 const header__clickCost = document.getElementById("header__click-cost")
+const header__bonus = document.getElementById("header__bonus")
 const progress__bar = document.getElementById("progress__bar")
-export {header__money,header__passiveIncome,header__clickCost,progress__bar};
+export {header__money,header__passiveIncome,header__clickCost,progress__bar,header__bonus};
 

@@ -135,8 +135,8 @@ main{
                 pointer-events: none;
             }
             img{
-                width: 50px;
-                height: 50px;
+                width: 20px;
+                height: 20px;
                 animation-name: rotatePeach;
                 animation-duration: 3s;
                 animation-iteration-count: infinite;
@@ -144,6 +144,24 @@ main{
                 pointer-events: none;
             }
             
+        }
+        &__chest{
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: end;
+            padding: 25px;
+            &-img{
+                height: 100px;
+                width: 100px;
+                background-color:coral;
+                box-shadow: 4px 4px 1px black;
+                border-radius: 25px;
+                padding: 5px;
+            }
+            &-img:hover{
+                transform: scale(1.1);
+            }
         }
         .progressBar{
             width: 90%;
@@ -171,9 +189,9 @@ main{
 
             }
         }
-        .clicker__peach img{
-            width:25vw;
-            height: 25vh;
+        &__peach img{
+            width:50px;
+            height: 50px;
             display: flex;
             margin: auto;
         }

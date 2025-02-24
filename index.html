@@ -17,9 +17,14 @@
         </div>
         <div class="header__money" id="header__passive-income"> 
         </div>
+        <div class="header__money" id="header__bonus"> 
+        </div>
     </header>
     <main>
-        <div class="clicker" id="test">
+        <div class="clicker">
+            <div class="clicker__chest">
+                <img class="clicker__chest-img" src="/img/svg/treasure-chest.png" alt="">
+            </div>
             <div class="clicker__peach" id="div-peach">
                 <div>
                     <img id="peach" src="/img/svg/peach.svg" alt="" >
@@ -357,17 +362,17 @@
                 <div class="card">
                     <div class="card__image">
                         <div class="card__image-wrapper">
-                            <img src="/img/svg/cursor.svg" alt="">
+                            <img src="/img/svg/tree.svg" alt="">
                         </div>
                     </div>
                     <div class="card__main">
                         <div class="card__main-title">
-                            <h1 class="card__main-name">Пальчики</h1>
-                            <h1 class="card__main-price">10</h1>
+                            <h1 class="card__main-name">Дерево</h1>
+                            <h1 class="card__main-price">10B</h1>
                             <img class="card__main-peach" src="/img/svg/money.svg" alt="Peach-money">
                         </div>
                             <div class="card__main-description">
-                                <p>Ваши пальчики становятся эффективнее на <span class="card__main-power">1</span> персик!</p>
+                                <p>После всего надо посадить еще дерево.Дополнительные <span class="card__main-power">100M</span> персиков!</p>
                             </div>
                     </div>
                     <div class="card__buy">
@@ -519,7 +524,7 @@
                     <div class="card__main">
                         <div class="card__main-title">
                             <h1 class="card__main-name">BBS</h1>
-                            <h1 class="card__main-price">1B</h1>
+                            <h1 id="price_BBS" class="card__main-price"></h1>
                             <img class="card__main-peach" src="/img/svg/money.svg" alt="Peach-money">
                         </div>
                         <div class="card__main-description">
@@ -527,7 +532,7 @@
                         </div>
                     </div>
                     <div class="card__buy">
-                        <button id="Fill-Bar" class="card__buy-button card__buy-achiev">
+                        <button id="BBS" class="card__buy-button card__buy-achiev">
                         <img class="card__buy-image" src="/img/svg/cart.png" alt="">
                         </button>
                     </div>
