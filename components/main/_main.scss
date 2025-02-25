@@ -83,6 +83,61 @@ body{
     font-family: 'AristaPro';
     background-image: url(/img/background/back-main.png);
     background-size: cover;
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none; 
+        z-index: 10;}
+    .modal{
+        width: 400px;
+        height: 150px;
+        position: absolute;
+        left:50%;
+        top: 50%;
+        border-radius: 50px;
+        background-color: burlywood;
+        z-index: 1;
+        transform: translate(-50%, -50%);
+        padding: 15px;
+        padding-bottom: 25px;
+        box-shadow: 3px 3px 1px rgb(47, 46, 46);
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        z-index: 20;
+        border: 1px solid black;
+        &__inner{
+            display: flex;
+            width: 100%;
+            height: 25px;
+            justify-content: end;
+            svg{
+                width: 25px;
+                height: 25px;
+            }
+            svg:hover{
+                transform: scale(1.5);
+            }
+        }
+        &__title{
+            text-align: center;
+            justify-content: center;
+            width: 100%;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: normal;
+        }
+        &__span{
+            background-color: coral;
+            border-radius: 25px;
+            padding: 5px;
+
+        }
+    }
 }
 .header{
     width: 100%;
@@ -145,12 +200,13 @@ main{
             }
             
         }
-        &__chest{
+        &__inner{
             width: 100%;
             height: 50px;
             display: flex;
             justify-content: end;
-            padding: 25px;
+            padding: 0 25px;
+            justify-content: space-between;
             &-img{
                 height: 100px;
                 width: 100px;
@@ -158,10 +214,17 @@ main{
                 box-shadow: 4px 4px 1px black;
                 border-radius: 25px;
                 padding: 5px;
+                display: flex; // Изменить на нон,когда допилю престиж
+                transition: background-color 0.5s;
             }
             &-img:hover{
-                transform: scale(1.1);
+                background-color: rgb(197, 71, 25);
             }
+            &-img path{
+                height: 100px;
+                width: 100px;
+            }
+            
         }
         .progressBar{
             width: 90%;
@@ -201,22 +264,29 @@ main{
         height: 100%;
         flex-direction: column;
         width: 50%;
+        background-color: bisque;
         &__inner{
             display: flex;
             flex-direction: row;
             height: 100px;
             width: 100%;
+            border:1px solid black;
+            box-shadow: 1px 1px 1px black;
             }
             &__part{
                 height: 100px;
                 width: 100%;
                 display: flex;
                 padding: 10px 0px 5px 0px;
-                border: 2px solid rgb(82, 82, 82);
+                border: 1px solid rgb(82, 82, 82);
                 img{
                     height: 85px;
                     width: 85px; 
                     margin: 0 auto;
+                }
+                img:hover{
+                    height: 90px;
+                    width: 90px;
                 }
                 
         }
@@ -257,8 +327,11 @@ main{
                     display: block;
                     width: 100%;
                     height: 100%;
-
-
+                }
+                svg{
+                    display: block;
+                    width: 100%;
+                    height: 100%;
                 }
             }
         }
@@ -349,4 +422,5 @@ main{
             }
         }
     }
+
 }

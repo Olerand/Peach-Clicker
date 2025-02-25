@@ -10,6 +10,7 @@
     
 </head>
 <body>
+    <div id="overlay" class="overlay"></div>
     <header  id = "header" class="header">
         <div class="header__money" id="header__money">
         </div>
@@ -22,8 +23,10 @@
     </header>
     <main>
         <div class="clicker">
-            <div class="clicker__chest">
-                <img class="clicker__chest-img" src="/img/svg/treasure-chest.png" alt="">
+            <div class="clicker__inner">
+                <img id="clicker-prestige" class="clicker__inner-img" src="/img/svg/star.svg" alt="">
+                <img id="clicker-chest" class="clicker__inner-img" src="/img/svg/treasure-chest.png" alt="">
+               
             </div>
             <div class="clicker__peach" id="div-peach">
                 <div>
@@ -488,7 +491,7 @@
                         </div>
                     </div>
                     <div class="card__buy">
-                        <button id="Fill-Bar" class="card__buy-button card__buy-achiev">
+                        <button id="Chest" class="card__buy-button card__buy-achiev">
                         <img class="card__buy-image" src="/img/svg/cart.png" alt="">
                         </button>
                     </div>
@@ -537,9 +540,38 @@
                         </button>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card__image">
+                        <div class="card__image-wrapper">
+                            <svg class = "card__image-svg" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 26 26"><path fill="currentColor" d="M25.326 10.137a1.001 1.001 0 0 0-.807-.68l-7.34-1.066l-3.283-6.651c-.337-.683-1.456-.683-1.793 0L8.82 8.391L1.48 9.457a1 1 0 0 0-.554 1.705l5.312 5.178l-1.254 7.31a1.001 1.001 0 0 0 1.451 1.054L13 21.252l6.564 3.451a1 1 0 0 0 1.451-1.054l-1.254-7.31l5.312-5.178a.998.998 0 0 0 .253-1.024z"/></svg>
+                        </div>
+                    </div>
+                    <div class="card__main">
+                        <div class="card__main-title">
+                            <h1 class="card__main-name">Prestige</h1>
+                            <h1 id="price_BBS" class="card__main-price">10E</h1>
+                            <img class="card__main-peach" src="/img/svg/money.svg" alt="Peach-money">
+                        </div>
+                        <div class="card__main-description">
+                            <p>Начните жизнь с чистого листа...</p>
+                        </div>
+                    </div>
+                    <div class="card__buy">
+                        <button id="Prestige" class="card__buy-button card__buy-achiev">
+                        <img class="card__buy-image" src="/img/svg/cart.png" alt="">
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
+    <div id="modal" class="modal">
+        <div class="modal__inner">
+            <svg onclick="event.target.closest('.modal').style.display = 'none';document.getElementById('overlay').style.display = 'none';" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m15.5 15.5l-10-10zm0-10l-10 10"/></svg>
+        </div>
+        <h1 id="modal-title" class="modal__title"></h1>
+        <h2 id="modal-text" class="modal__title"><span class="modal__span"></span> </h2>
+    </div>
     <script type="module" src="/components/main/variable.js"></script>
     <script type="module" src="/components/main/main.js"></script>
     <script type="module" src="/components/main/clicker.js"></script>

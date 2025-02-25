@@ -7,6 +7,12 @@ localStorage.fill_bar = localStorage.fill_bar || "false";
 localStorage.double_click = Number(localStorage.double_click) || 1;
 localStorage.farmer = localStorage.farmer || false;
 localStorage.sizePeach = localStorage.sizePeach || 0;
+localStorage.chest = localStorage.chest || false;
+localStorage.chestDateLock;
+localStorage.prestige = localStorage.prestige || false;
+localStorage.prestige_bonus = localStorage.prestige || 1;
+localStorage.prestige_bonus = 1;
+
 
 
 function resetSettings() {
@@ -24,5 +30,5 @@ function resetSettings() {
 function boost(){
   localStorage.click_cost = 10000000000000
 }
-boost()
+// boost()
 // resetSettings()

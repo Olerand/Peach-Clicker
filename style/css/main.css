@@ -82,6 +82,61 @@ body {
   background-image: url(/img/background/back-main.png);
   background-size: cover;
 }
+body .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 10;
+}
+body .modal {
+  width: 400px;
+  height: 150px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50px;
+  background-color: burlywood;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+  padding-bottom: 25px;
+  box-shadow: 3px 3px 1px rgb(47, 46, 46);
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 20;
+  border: 1px solid black;
+}
+body .modal__inner {
+  display: flex;
+  width: 100%;
+  height: 25px;
+  justify-content: end;
+}
+body .modal__inner svg {
+  width: 25px;
+  height: 25px;
+}
+body .modal__inner svg:hover {
+  transform: scale(1.5);
+}
+body .modal__title {
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: normal;
+}
+body .modal__span {
+  background-color: coral;
+  border-radius: 25px;
+  padding: 5px;
+}
 
 .header {
   width: 100%;
@@ -145,23 +200,30 @@ main .clicker__peach img {
   animation-timing-function: linear;
   pointer-events: none;
 }
-main .clicker__chest {
+main .clicker__inner {
   width: 100%;
   height: 50px;
   display: flex;
   justify-content: end;
-  padding: 25px;
+  padding: 0 25px;
+  justify-content: space-between;
 }
-main .clicker__chest-img {
+main .clicker__inner-img {
   height: 100px;
   width: 100px;
   background-color: coral;
   box-shadow: 4px 4px 1px black;
   border-radius: 25px;
   padding: 5px;
+  display: flex;
+  transition: background-color 0.5s;
 }
-main .clicker__chest-img:hover {
-  transform: scale(1.1);
+main .clicker__inner-img:hover {
+  background-color: rgb(197, 71, 25);
+}
+main .clicker__inner-img path {
+  height: 100px;
+  width: 100px;
 }
 main .clicker .progressBar {
   width: 90%;
@@ -198,24 +260,31 @@ main .categories {
   height: 100%;
   flex-direction: column;
   width: 50%;
+  background-color: bisque;
 }
 main .categories__inner {
   display: flex;
   flex-direction: row;
   height: 100px;
   width: 100%;
+  border: 1px solid black;
+  box-shadow: 1px 1px 1px black;
 }
 main .categories__part {
   height: 100px;
   width: 100%;
   display: flex;
   padding: 10px 0px 5px 0px;
-  border: 2px solid rgb(82, 82, 82);
+  border: 1px solid rgb(82, 82, 82);
 }
 main .categories__part img {
   height: 85px;
   width: 85px;
   margin: 0 auto;
+}
+main .categories__part img:hover {
+  height: 90px;
+  width: 90px;
 }
 main .categories__boost {
   display: flex;
@@ -252,6 +321,11 @@ main .card__image-wrapper {
   box-shadow: 3px 3px 10px black;
 }
 main .card__image-wrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+main .card__image-wrapper svg {
   display: block;
   width: 100%;
   height: 100%;

@@ -3,10 +3,28 @@ window.onload = function () {
   checkFillBar()
   checkDoubleClick()
   checkFarmer()
+  checkChest()
   checkPeachSize()
+  checkPresige()
   localStorage.coef_click = 1
 
 };
+function checkChest(){
+  if(localStorage.getItem("chest")=== "true"){
+    document.getElementById("Chest").closest(".card").style.display = "none"
+    document.getElementById("clicker-chest").style.display = "flex";
+    console.log(localStorage.chestDateLock)
+  }else{
+    document.getElementById("clicker-chest").style.display = "none";
+  }
+}
+function checkPresige(){
+  if(localStorage.getItem("prestige") === "true"){
+    document.getElementById("Prestige").closest("card").style.display = "none";
+  }else{
+
+  }
+}
 let levelPeachBoost;
 function checkPeachSize(){
 
@@ -64,7 +82,7 @@ function checkPeachSize(){
     levelPeachBoost = levelPeach[localStorage.sizePeach].boost
     priceBBS.textContent = levelPeach[localStorage.sizePeach].price
   if(Number(localStorage.sizePeach) == 8){
-    console.log(document.getElementById("BBS").closest(".card").style.display = "none")
+    document.getElementById("BBS").closest(".card").style.display = "none"
   }
 }
 function checkFarmer(){
@@ -114,6 +132,45 @@ function parseCompactNumber(str) {
     return parseFloat(str) * multipliers[str[str.length-1]]
   }else{
     return parseFloat(str)
+  }
+}
+
+function openModalChest(status,time){
+  if(status){
+    console.log((localStorage.passive_income_per_second*time)/4)
+    document.getElementById("modal").innerHTML = `
+      <div class="modal__inner">
+            <svg onclick="event.target.closest('.modal').style.display = 'none';document.getElementById('overlay').style.display = 'none';" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m15.5 15.5l-10-10zm0-10l-10 10"/></svg>
+        </div>
+        <h1 id="modal-title" class="modal__title">Сундук готов явить свои дары!</h1>
+        <h2 id="modal-text" class="modal__title">Ваш доход:<span class="modal__span">${formatBigNumber((localStorage.passive_income_per_second*time)/4)}</span></h2>
+    `
+    localStorage.chestDateLock = new Date();
+    localStorage.money = Number(localStorage.money) + ((localStorage.passive_income_per_second*time)/4)
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("overlay").style.display = "block"
+  }else{
+    document.getElementById("modal").innerHTML = 
+    `
+      <div class="modal__inner">
+        <svg onclick="event.target.closest('.modal').style.display = 'none';document.getElementById('overlay').style.display = 'none';" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m15.5 15.5l-10-10zm0-10l-10 10"/></svg>
+      </div>
+      <h1 id="modal-title" class="modal__title">Сундук ещё не готов явить свои дары!</h1>
+      <h2 id="modal-text" class="modal__title">Он откроется через <span class="modal__span">${time}</span>секунд</h2>
+    `
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("overlay").style.display = "block"
+  }
+}
+// chest
+document.getElementById("clicker-chest").onclick = (event) =>{
+  let lockDate = (Date.parse(localStorage.chestDateLock)/1000).toFixed(0)
+  let nowDate = (Date.now()/1000).toFixed(0)
+  let timeForOpenChest = 3600
+  if(nowDate - lockDate >= timeForOpenChest){
+    openModalChest(true,timeForOpenChest)
+  }else{
+    openModalChest(false,timeForOpenChest - (nowDate-lockDate))
   }
 }
 let boostOfClick = false;
@@ -166,7 +223,6 @@ function clickCostUp(x,y){
   setTimeout(() => {
     div.remove(); 
   }, 1000);
-
 }
 function formatBigNumber(num) {
   if (num < 1e3) return num.toFixed(0); 
@@ -193,7 +249,7 @@ function  glitchAnimation(event){
 }
 // Click peach to make a lot of money
 document.getElementById("div-peach").onclick = (event) =>{
-  localStorage.money = Number(localStorage.money) + (Number(localStorage.click_cost)*Number(localStorage.coef_click)*Number(localStorage.double_click)*levelPeachBoost);
+  localStorage.money = Number(localStorage.money) + (Number(localStorage.click_cost)*Number(localStorage.coef_click)*Number(localStorage.double_click)*levelPeachBoost*localStorage.prestige_bonus);
   clickCostUp(event.clientX,event.clientY)
   audioAdd()
   if(localStorage.getItem("fill_bar") === "true"){
@@ -267,6 +323,28 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
         }else{
           glitchAnimation(event)
         }
+        break
+      }
+      case "Chest":{
+        if(Number(localStorage.money)>=price && localStorage.getItem("chest") === "false"){
+          localStorage.money = Number(localStorage.money) - price
+          localStorage.chest = true;
+          localStorage.chestDateLock = new Date();
+          checkChest()
+        }else{
+          glitchAnimation(event)
+        }
+        break
+      }
+      case "Prestige":{
+        if(Number(localStorage.money)>=price && localStorage.getItem("prestige") === "false"){
+          localStorage.money = Number(localStorage.money) - price
+          localStorage.prestige = true;
+          checkPresige()
+        }else{
+          glitchAnimation(event)
+        }
+        break;
       }
     }
     
@@ -282,14 +360,10 @@ document.querySelectorAll(".card__buy-income").forEach(button => {
       localStorage.money = Number(localStorage.money) - Number(price)
       localStorage.passive_income_per_second =  Number(localStorage.passive_income_per_second) + Number(power)
     }else{
-      glitchAnimation()
+      glitchAnimation(event)
     }
   };
 });
-
-
-
-
 
 // Intervals
 setInterval(() => {
