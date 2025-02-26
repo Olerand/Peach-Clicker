@@ -7,22 +7,22 @@ window.onload = function () {
   checkPeachSize()
   checkPresige()
   localStorage.coef_click = 1
-
 };
 function checkChest(){
   if(localStorage.getItem("chest")=== "true"){
     document.getElementById("Chest").closest(".card").style.display = "none"
     document.getElementById("clicker-chest").style.display = "flex";
-    console.log(localStorage.chestDateLock)
   }else{
     document.getElementById("clicker-chest").style.display = "none";
   }
 }
 function checkPresige(){
   if(localStorage.getItem("prestige") === "true"){
-    document.getElementById("Prestige").closest("card").style.display = "none";
-  }else{
+    document.getElementById("Prestige").closest(".card").style.display = "none";
+    document.getElementById("clicker-prestige").style.display = "flex";
 
+  }else{
+    document.getElementById("clicker-prestige").style.display = "none";
   }
 }
 let levelPeachBoost;
@@ -76,11 +76,11 @@ function checkPeachSize(){
     },
   }
   const priceBBS = document.getElementById("price_BBS")
-    const peach = document.getElementById("peach")
-    peach.style.width = levelPeach[localStorage.sizePeach].size
-    peach.style.height = levelPeach[localStorage.sizePeach].size
-    levelPeachBoost = levelPeach[localStorage.sizePeach].boost
-    priceBBS.textContent = levelPeach[localStorage.sizePeach].price
+  const peach = document.getElementById("peach")
+  peach.style.width = levelPeach[localStorage.sizePeach].size
+  peach.style.height = levelPeach[localStorage.sizePeach].size
+  levelPeachBoost = levelPeach[localStorage.sizePeach].boost
+  priceBBS.textContent = levelPeach[localStorage.sizePeach].price
   if(Number(localStorage.sizePeach) == 8){
     document.getElementById("BBS").closest(".card").style.display = "none"
   }
@@ -137,8 +137,8 @@ function parseCompactNumber(str) {
 
 function openModalChest(status,time){
   if(status){
-    console.log((localStorage.passive_income_per_second*time)/4)
-    document.getElementById("modal").innerHTML = `
+    document.getElementById("modal").innerHTML = 
+    `
       <div class="modal__inner">
             <svg onclick="event.target.closest('.modal').style.display = 'none';document.getElementById('overlay').style.display = 'none';" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m15.5 15.5l-10-10zm0-10l-10 10"/></svg>
         </div>
@@ -160,6 +160,57 @@ function openModalChest(status,time){
     `
     document.getElementById("modal").style.display = "flex";
     document.getElementById("overlay").style.display = "block"
+  }
+}
+function openModalPrestige(status,pricePrestige){
+  let modal = document.getElementById("modal")
+  if(status){
+    modal.innerHTML = `
+      <div class="modal__inner">
+        <svg onclick="event.target.closest('.modal').style.display = 'none';document.getElementById('overlay').style.display = 'none';" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m15.5 15.5l-10-10zm0-10l-10 10"/></svg>
+      </div>
+      <h1 id="modal-title" class="modal__title">Вы можете потерять все свои достижения и начать жизнь с чистого листа.</h1>
+      <h2 id="modal-text" class="modal__title">Получив при этом бонус:<span class="modal__span">X${Number(localStorage.prestige_bonus)+1}</span></h2>
+      <button id = "prestige-reset" class="modal__button">Престиж</button>
+    `
+    document.getElementById("prestige-reset").addEventListener("click",resetSettings)
+    modal.style.display = "flex"
+    document.getElementById("overlay").style.display = "block"
+
+  }else{
+    modal.innerHTML = `
+      <div class="modal__inner">
+        <svg onclick="event.target.closest('.modal').style.display = 'none';document.getElementById('overlay').style.display = 'none';" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m15.5 15.5l-10-10zm0-10l-10 10"/></svg>
+      </div>
+      <h1 id="modal-title" class="modal__title">У вас не хватает средств на новую жизнь и документы.</h1>
+      <h2 id="modal-text" class="modal__title">Накопите ещё:<span class="modal__span">${formatBigNumber(Number(parseCompactNumber(pricePrestige))-Number(localStorage.money))}</span></h2>
+    `
+    modal.style.display = "flex"
+    document.getElementById("overlay").style.display = "block"
+  }
+}
+function resetSettings() {
+  location.reload()
+  localStorage.click_cost = 1;
+  localStorage.money = 0;
+  localStorage.passive_income_per_second = 0;
+  localStorage.coef_click = 1;
+  localStorage.fill_bar = false; 
+  localStorage.double_click = 1;
+  localStorage.farmer = false;
+  localStorage.sizePeach = 0;
+  localStorage.coef_click = 1;
+  localStorage.chest = false;
+  localStorage.prestige = false;
+
+}
+// PRESTIGE
+document.getElementById("clicker-prestige").onclick = (event)=>{
+  let pricePrestige = "10E"
+  if(localStorage.money >= parseCompactNumber(pricePrestige)){
+    openModalPrestige(true,pricePrestige)
+  }else{
+    openModalPrestige(false,pricePrestige)
   }
 }
 // chest
@@ -225,20 +276,25 @@ function clickCostUp(x,y){
   }, 1000);
 }
 function formatBigNumber(num) {
-  if (num < 1e3) return num.toFixed(0); 
-  const suffixes = ["K", "M", "B", "T", "P", "E"];
-  let i = 0;
+  num = Number(num);
+  if (num < 1e3) return parseFloat(num.toFixed(1));
+
+  const suffixes = ["K", "M", "B", "T", "P", "E", "Z", "Y"];
+  let i = -1;
+
   while (num >= 1000 && i < suffixes.length - 1) {
-    num /= 1000;
-    i++;
+      num /= 1000;
+      i++;
   }
-  num = Math.round(num * 100) / 100
-  return num.toFixed(0) + suffixes[i];
+
+  return num.toFixed(1) + suffixes[i]; // Округляем до 2 знаков
 }
+
+
 
 function audioAdd(){
   let audio = new Audio("music/peach.mp3")
-  audio.volume = 0.5;
+  audio.volume = 0.2;
   audio.play()
 }
 function  glitchAnimation(event){
@@ -249,7 +305,7 @@ function  glitchAnimation(event){
 }
 // Click peach to make a lot of money
 document.getElementById("div-peach").onclick = (event) =>{
-  localStorage.money = Number(localStorage.money) + (Number(localStorage.click_cost)*Number(localStorage.coef_click)*Number(localStorage.double_click)*levelPeachBoost*localStorage.prestige_bonus);
+  localStorage.money =  Number(localStorage.money) + (Number(localStorage.click_cost)*Number(localStorage.coef_click)*Number(localStorage.double_click)*Number(levelPeachBoost)*Number(localStorage.prestige_bonus));
   clickCostUp(event.clientX,event.clientY)
   audioAdd()
   if(localStorage.getItem("fill_bar") === "true"){
@@ -279,6 +335,7 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
     const name = event.target.closest('.card__buy-achiev')
     const achiev = name.id
     const price = parseCompactNumber(event.target.closest(".card").querySelector(".card__main-price").textContent)
+    console.log(formatBigNumber(price))
     const card = event.target.closest(".card")
     switch(achiev){
       case "Fill-Bar":{
@@ -337,7 +394,7 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
         break
       }
       case "Prestige":{
-        if(Number(localStorage.money)>=price && localStorage.getItem("prestige") === "false"){
+        if(Number(localStorage.money) >=price && localStorage.getItem("prestige") === "false"){
           localStorage.money = Number(localStorage.money) - price
           localStorage.prestige = true;
           checkPresige()
@@ -368,8 +425,8 @@ document.querySelectorAll(".card__buy-income").forEach(button => {
 // Intervals
 setInterval(() => {
   let money = formatBigNumber(Number(localStorage.money))
-  let bonus = Number(localStorage.coef_click)*Number(localStorage.double_click)*levelPeachBoost
-  let clickCost = formatBigNumber(Number(localStorage.click_cost)*bonus)
+  let bonus = Number(localStorage.coef_click)*Number(localStorage.double_click)*Number(levelPeachBoost)
+  let clickCost = formatBigNumber(Number(localStorage.click_cost)*Number(bonus))
   let income = formatBigNumber(Number(localStorage.passive_income_per_second))
     header__money.innerHTML = `<h1 class = "header__money-title"> ${money}</h1>
     <svg class= "header__money-svg" 
