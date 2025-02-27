@@ -111,6 +111,40 @@ body .modal {
   z-index: 20;
   border: 1px solid black;
 }
+body .modal__range {
+  justify-content: center;
+  align-items: center;
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+  width: 300px;
+  height: 8px;
+  background: bisque;
+  border-radius: 4px;
+  outline: none;
+  margin: 0 auto;
+}
+body .modal__range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: coral;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-transition: transform 0.2s;
+  transition: transform 0.2s;
+}
+body .modal__range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+body .modal__range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: coral;
+  border-radius: 50%;
+  cursor: pointer;
+}
 body .modal__inner {
   display: flex;
   width: 100%;
@@ -152,6 +186,7 @@ body .modal__button {
 }
 body .modal__button:hover {
   background-color: rgb(239, 88, 33);
+  transform: rotate3d(2, 4, 0, 30deg);
 }
 body .modal__button:active {
   box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.5);
@@ -165,6 +200,12 @@ body .modal__button:active {
   justify-content: space-around;
   padding: 15px 0px;
 }
+.header__inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 80%;
+}
 .header__money {
   display: flex;
   height: 2em;
@@ -172,8 +213,11 @@ body .modal__button:active {
   border-radius: 10px;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(90deg, rgba(131, 58, 180, 0.5) 0%, rgba(253, 29, 29, 0.5) 50%, rgba(252, 176, 69, 0.5) 100%);
+  background-color: coral;
   backface-visibility: 75%;
+  color: rgb(39, 38, 38);
+  border: 2px solid black;
+  box-shadow: 2px 2px 1px black;
 }
 .header__money-title {
   font-size: 25px;
@@ -183,6 +227,21 @@ body .modal__button:active {
 .header__money-svg {
   width: 25px;
   height: 25px;
+}
+.header__music {
+  width: 5%;
+  height: 100%;
+  background-color: coral;
+  border-radius: 15px;
+  border: 1px solid black;
+  transition: background-color 0.3s;
+  box-shadow: 1px 1px 3px black;
+}
+.header__music:hover {
+  background-color: rgb(227, 103, 58);
+}
+.header__music:active {
+  box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.5);
 }
 
 main {
@@ -280,30 +339,37 @@ main .categories {
   flex-direction: column;
   width: 50%;
   background-color: bisque;
+  border-radius: 25px;
 }
 main .categories__inner {
   display: flex;
   flex-direction: row;
   height: 100px;
   width: 100%;
-  border: 1px solid black;
   box-shadow: 1px 1px 1px black;
 }
 main .categories__part {
   height: 100px;
   width: 100%;
   display: flex;
-  padding: 10px 0px 5px 0px;
-  border: 1px solid rgb(82, 82, 82);
+  border-right: 1px solid black;
 }
-main .categories__part img {
+main .categories__part svg {
   height: 85px;
   width: 85px;
-  margin: 0 auto;
+  margin: auto;
+  background-color: coral;
+  border-radius: 25px;
+  box-shadow: 1px 1px 1px rgb(48, 48, 48);
+  transition: 0.2s background-color;
 }
-main .categories__part img:hover {
+main .categories__part svg:hover {
   height: 90px;
   width: 90px;
+  background-color: rgb(227, 103, 58);
+}
+main .categories__part svg:active {
+  box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.5);
 }
 main .categories__boost {
   display: flex;
@@ -338,6 +404,7 @@ main .card__image-wrapper {
   background-color: coral;
   padding: 10px;
   box-shadow: 3px 3px 10px black;
+  transition: background-color 0.3s;
 }
 main .card__image-wrapper img {
   display: block;
@@ -348,6 +415,10 @@ main .card__image-wrapper svg {
   display: block;
   width: 100%;
   height: 100%;
+}
+main .card__image-wrapper:hover {
+  background-color: rgb(227, 103, 58);
+  transform: rotate3d(2, 4, 0, 30deg);
 }
 main .card__main {
   width: 60%;

@@ -1,4 +1,5 @@
-import {header__money,header__passiveIncome,header__clickCost, progress__bar,header__bonus} from './main.js'
+
+
 window.onload = function () {
   checkFillBar()
   checkDoubleClick()
@@ -7,7 +8,20 @@ window.onload = function () {
   checkPeachSize()
   checkPresige()
   localStorage.coef_click = 1
+  const mainMusic = new Audio("music/main.mp3")
+    mainMusic.volume = soundLevel;
+    mainMusic.play()
+
 };
+let soundLevel = 0.2;
+
+async function audioAdd(nameMusic){
+
+    let audio = new Audio("music/"+ nameMusic +".mp3")
+    audio.volume = soundLevel;
+    audio.play()
+}
+const progress__bar = document.getElementById("progress__bar")
 function checkChest(){
   if(localStorage.getItem("chest")=== "true"){
     document.getElementById("Chest").closest(".card").style.display = "none"
@@ -20,14 +34,13 @@ function checkPresige(){
   if(localStorage.getItem("prestige") === "true"){
     document.getElementById("Prestige").closest(".card").style.display = "none";
     document.getElementById("clicker-prestige").style.display = "flex";
-
   }else{
     document.getElementById("clicker-prestige").style.display = "none";
   }
 }
 let levelPeachBoost;
 function checkPeachSize(){
-
+  console.log("Peach size check function")
   const levelPeach = {
     "0":{
       size:"50px",
@@ -134,23 +147,25 @@ function parseCompactNumber(str) {
     return parseFloat(str)
   }
 }
-
+// Modal-windows
+const modal = document.getElementById("modal")
 function openModalChest(status,time){
   if(status){
-    document.getElementById("modal").innerHTML = 
+    modal.innerHTML = 
     `
       <div class="modal__inner">
-            <svg onclick="event.target.closest('.modal').style.display = 'none';document.getElementById('overlay').style.display = 'none';" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m15.5 15.5l-10-10zm0-10l-10 10"/></svg>
-        </div>
-        <h1 id="modal-title" class="modal__title">Сундук готов явить свои дары!</h1>
-        <h2 id="modal-text" class="modal__title">Ваш доход:<span class="modal__span">${formatBigNumber((localStorage.passive_income_per_second*time)/4)}</span></h2>
+        <svg onclick="event.target.closest('.modal').style.display = 'none';document.getElementById('overlay').style.display = 'none';" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m15.5 15.5l-10-10zm0-10l-10 10"/></svg>
+      </div>
+      <h1 id="modal-title" class="modal__title">Сундук готов явить свои дары!</h1>
+      <h2 id="modal-text" class="modal__title">Ваш доход:<span class="modal__span">${formatBigNumber((localStorage.passive_income_per_second*time)/4)}</span></h2>
     `
     localStorage.chestDateLock = new Date();
     localStorage.money = Number(localStorage.money) + ((localStorage.passive_income_per_second*time)/4)
-    document.getElementById("modal").style.display = "flex";
+    audioAdd("treasure")
+    modal.style.display = "flex";
     document.getElementById("overlay").style.display = "block"
   }else{
-    document.getElementById("modal").innerHTML = 
+    modal.innerHTML = 
     `
       <div class="modal__inner">
         <svg onclick="event.target.closest('.modal').style.display = 'none';document.getElementById('overlay').style.display = 'none';" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 21 21"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m15.5 15.5l-10-10zm0-10l-10 10"/></svg>
@@ -158,12 +173,11 @@ function openModalChest(status,time){
       <h1 id="modal-title" class="modal__title">Сундук ещё не готов явить свои дары!</h1>
       <h2 id="modal-text" class="modal__title">Он откроется через <span class="modal__span">${time}</span>секунд</h2>
     `
-    document.getElementById("modal").style.display = "flex";
+    modal.style.display = "flex";
     document.getElementById("overlay").style.display = "block"
   }
 }
 function openModalPrestige(status,pricePrestige){
-  let modal = document.getElementById("modal")
   if(status){
     modal.innerHTML = `
       <div class="modal__inner">
@@ -189,6 +203,13 @@ function openModalPrestige(status,pricePrestige){
     document.getElementById("overlay").style.display = "block"
   }
 }
+document.getElementById("range-music").addEventListener("input",(event)=>{
+  soundLevel = event.target.value
+})
+document.getElementById("music").onclick=()=>{
+  document.getElementById("modal-music").style.display = "flex";
+  document.getElementById("overlay").style.display = "block"
+}
 function resetSettings() {
   location.reload()
   localStorage.click_cost = 1;
@@ -202,11 +223,13 @@ function resetSettings() {
   localStorage.coef_click = 1;
   localStorage.chest = false;
   localStorage.prestige = false;
+  localStorage.prestige_bonus = Number(localStorage.prestige_bonus) + 1
 
 }
+
 // PRESTIGE
 document.getElementById("clicker-prestige").onclick = (event)=>{
-  let pricePrestige = "10E"
+  let pricePrestige = "250P"
   if(localStorage.money >= parseCompactNumber(pricePrestige)){
     openModalPrestige(true,pricePrestige)
   }else{
@@ -292,13 +315,10 @@ function formatBigNumber(num) {
 
 
 
-function audioAdd(){
-  let audio = new Audio("music/peach.mp3")
-  audio.volume = 0.2;
-  audio.play()
-}
+
 function  glitchAnimation(event){
   event.target.style.animation = "glitch 0.3s";
+  audioAdd("lose-buy")
   setTimeout(()=>{
     event.target.style.animation = ""
   },300)
@@ -307,7 +327,7 @@ function  glitchAnimation(event){
 document.getElementById("div-peach").onclick = (event) =>{
   localStorage.money =  Number(localStorage.money) + (Number(localStorage.click_cost)*Number(localStorage.coef_click)*Number(localStorage.double_click)*Number(levelPeachBoost)*Number(localStorage.prestige_bonus));
   clickCostUp(event.clientX,event.clientY)
-  audioAdd()
+  audioAdd("peach")
   if(localStorage.getItem("fill_bar") === "true"){
     fillBar()}
     setTimeout(()=>{
@@ -323,6 +343,7 @@ document.querySelectorAll(".card__buy-click").forEach(button => {
     if(Number(localStorage.money) >= price){
         localStorage.money = Number(localStorage.money) - Number(price)
         localStorage.click_cost = Number(localStorage.click_cost) + Number(power)
+        audioAdd("purchase")
     }else{
       glitchAnimation(event)
     }
@@ -344,6 +365,7 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
           localStorage.fill_bar = true;
           progress__bar.style.display = "flex";
           card.style.display = "none";
+          audioAdd("purchase")
         }else{
           glitchAnimation(event)
         }
@@ -354,6 +376,7 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
           localStorage.money = Number(localStorage.money) - price
           localStorage.double_click = 2;
           card.style.display = "none";
+          audioAdd("purchase")
         }else{
           glitchAnimation(event);
         }
@@ -364,6 +387,7 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
           localStorage.money = Number(localStorage.money) - price
           localStorage.farmer = true;
           card.style.display = "none";
+          audioAdd("purchase")
           checkFarmer();
         }else{
           glitchAnimation(event)
@@ -373,6 +397,7 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
         if(Number(localStorage.money)>=price && localStorage.sizePeach < 9){
           localStorage.money = Number(localStorage.money) - price
           localStorage.sizePeach = Number(localStorage.sizePeach) + 1;
+          audioAdd("purchase")
           checkPeachSize()
           if(Number(localStorage.sizePeach) == 8){
             card.style.display = "none";
@@ -387,6 +412,7 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
           localStorage.money = Number(localStorage.money) - price
           localStorage.chest = true;
           localStorage.chestDateLock = new Date();
+          audioAdd("purchase")
           checkChest()
         }else{
           glitchAnimation(event)
@@ -397,6 +423,7 @@ document.querySelectorAll(".card__buy-achiev").forEach(button => {
         if(Number(localStorage.money) >=price && localStorage.getItem("prestige") === "false"){
           localStorage.money = Number(localStorage.money) - price
           localStorage.prestige = true;
+          audioAdd("purchase")
           checkPresige()
         }else{
           glitchAnimation(event)
@@ -414,6 +441,7 @@ document.querySelectorAll(".card__buy-income").forEach(button => {
     let price = parseCompactNumber(event.target.closest(".card").querySelector(".card__main-price").textContent)
     let power = parseCompactNumber(event.target.closest(".card").querySelector(".card__main-power").textContent)
     if(Number(localStorage.money)>= Number(price)){
+      audioAdd("purchase")
       localStorage.money = Number(localStorage.money) - Number(price)
       localStorage.passive_income_per_second =  Number(localStorage.passive_income_per_second) + Number(power)
     }else{
@@ -423,23 +451,35 @@ document.querySelectorAll(".card__buy-income").forEach(button => {
 });
 
 // Intervals
+const header = document.getElementById("header-inner")
 setInterval(() => {
+
   let money = formatBigNumber(Number(localStorage.money))
   let bonus = Number(localStorage.coef_click)*Number(localStorage.double_click)*Number(levelPeachBoost)
   let clickCost = formatBigNumber(Number(localStorage.click_cost)*Number(bonus))
   let income = formatBigNumber(Number(localStorage.passive_income_per_second))
-    header__money.innerHTML = `<h1 class = "header__money-title"> ${money}</h1>
-    <svg class= "header__money-svg" 
-    xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 48 48"><g fill="orange" stroke="currentColor" stroke-width="4"><path stroke-linejoin="round" d="M10.077 13.431c4.97-5.56 13.61-3.116 16.923-1.43c1.657-.633 6.197-1.358 9.18.664c3.727 2.528 8.423 9.24 4.074 18.719C36.775 38.968 27.69 42.157 24.376 43c-2.485-1.053-7.946-3.168-13.77-8.448c-5.28-4.788-6.741-14.169-.529-21.12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M27 12c-1.924.75-5.772 2.25-7.87 6.75c-2.256 4.836-.525 9 0 11.25"/><path stroke-linecap="round" d="M21 4c.333.167 2.5.5 3 2.5c.437 1.749-.333 2.833-.5 4"/><path d="M28.479 11.329a1.477 1.477 0 0 1-1.416-1.808c.27-1.287.882-3.044 2.267-4.129c1.384-1.084 3.236-1.259 4.55-1.213a1.477 1.477 0 0 1 1.417 1.807c-.27 1.288-.883 3.045-2.267 4.13c-1.384 1.084-3.236 1.258-4.551 1.213Z"/></g></svg>`;
-    header__clickCost.innerHTML = `<h1 class = "header__money-title">Сила клика:${clickCost}</h1>
-    <svg class= "header__money-svg" 
-    xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 48 48"><g fill="orange" stroke="currentColor" stroke-width="4"><path stroke-linejoin="round" d="M10.077 13.431c4.97-5.56 13.61-3.116 16.923-1.43c1.657-.633 6.197-1.358 9.18.664c3.727 2.528 8.423 9.24 4.074 18.719C36.775 38.968 27.69 42.157 24.376 43c-2.485-1.053-7.946-3.168-13.77-8.448c-5.28-4.788-6.741-14.169-.529-21.12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M27 12c-1.924.75-5.772 2.25-7.87 6.75c-2.256 4.836-.525 9 0 11.25"/><path stroke-linecap="round" d="M21 4c.333.167 2.5.5 3 2.5c.437 1.749-.333 2.833-.5 4"/><path d="M28.479 11.329a1.477 1.477 0 0 1-1.416-1.808c.27-1.287.882-3.044 2.267-4.129c1.384-1.084 3.236-1.259 4.55-1.213a1.477 1.477 0 0 1 1.417 1.807c-.27 1.288-.883 3.045-2.267 4.13c-1.384 1.084-3.236 1.258-4.551 1.213Z"/></g></svg>`;
-    header__passiveIncome.innerHTML = `<h1 class = "header__money-title">Пас.Доход:${income}</h1>
-    <svg class= "header__money-svg" 
-    xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 48 48"><g fill="orange" stroke="currentColor" stroke-width="4"><path stroke-linejoin="round" d="M10.077 13.431c4.97-5.56 13.61-3.116 16.923-1.43c1.657-.633 6.197-1.358 9.18.664c3.727 2.528 8.423 9.24 4.074 18.719C36.775 38.968 27.69 42.157 24.376 43c-2.485-1.053-7.946-3.168-13.77-8.448c-5.28-4.788-6.741-14.169-.529-21.12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M27 12c-1.924.75-5.772 2.25-7.87 6.75c-2.256 4.836-.525 9 0 11.25"/><path stroke-linecap="round" d="M21 4c.333.167 2.5.5 3 2.5c.437 1.749-.333 2.833-.5 4"/><path d="M28.479 11.329a1.477 1.477 0 0 1-1.416-1.808c.27-1.287.882-3.044 2.267-4.129c1.384-1.084 3.236-1.259 4.55-1.213a1.477 1.477 0 0 1 1.417 1.807c-.27 1.288-.883 3.045-2.267 4.13c-1.384 1.084-3.236 1.258-4.551 1.213Z"/></g></svg>`;
-    header__bonus.innerHTML = `<h1 class = "header__money-title">Бонус клика:X${bonus}</h1>`
+  header.innerHTML= 
+  `<div class="header__money" id="header__money">
+    <h1 class = "header__money-title"> ${money}</h1>
+      <svg class= "header__money-svg" 
+      xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 48 48"><g fill="orange" stroke="currentColor" stroke-width="4"><path stroke-linejoin="round" d="M10.077 13.431c4.97-5.56 13.61-3.116 16.923-1.43c1.657-.633 6.197-1.358 9.18.664c3.727 2.528 8.423 9.24 4.074 18.719C36.775 38.968 27.69 42.157 24.376 43c-2.485-1.053-7.946-3.168-13.77-8.448c-5.28-4.788-6.741-14.169-.529-21.12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M27 12c-1.924.75-5.772 2.25-7.87 6.75c-2.256 4.836-.525 9 0 11.25"/><path stroke-linecap="round" d="M21 4c.333.167 2.5.5 3 2.5c.437 1.749-.333 2.833-.5 4"/><path d="M28.479 11.329a1.477 1.477 0 0 1-1.416-1.808c.27-1.287.882-3.044 2.267-4.129c1.384-1.084 3.236-1.259 4.55-1.213a1.477 1.477 0 0 1 1.417 1.807c-.27 1.288-.883 3.045-2.267 4.13c-1.384 1.084-3.236 1.258-4.551 1.213Z"/></g></svg>
+    </div>
+    <div class="header__money" id="header__click-cost">
+      <h1 class = "header__money-title">Сила клика:${clickCost}</h1>
+      <svg class= "header__money-svg" 
+      xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 48 48"><g fill="orange" stroke="currentColor" stroke-width="4"><path stroke-linejoin="round" d="M10.077 13.431c4.97-5.56 13.61-3.116 16.923-1.43c1.657-.633 6.197-1.358 9.18.664c3.727 2.528 8.423 9.24 4.074 18.719C36.775 38.968 27.69 42.157 24.376 43c-2.485-1.053-7.946-3.168-13.77-8.448c-5.28-4.788-6.741-14.169-.529-21.12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M27 12c-1.924.75-5.772 2.25-7.87 6.75c-2.256 4.836-.525 9 0 11.25"/><path stroke-linecap="round" d="M21 4c.333.167 2.5.5 3 2.5c.437 1.749-.333 2.833-.5 4"/><path d="M28.479 11.329a1.477 1.477 0 0 1-1.416-1.808c.27-1.287.882-3.044 2.267-4.129c1.384-1.084 3.236-1.259 4.55-1.213a1.477 1.477 0 0 1 1.417 1.807c-.27 1.288-.883 3.045-2.267 4.13c-1.384 1.084-3.236 1.258-4.551 1.213Z"/></g></svg>
+    </div>
+    <div class="header__money" id="header__passive-income"> 
+      <h1 class = "header__money-title">Пас.Доход:${income}</h1>
+      <svg class= "header__money-svg" 
+      xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 48 48"><g fill="orange" stroke="currentColor" stroke-width="4"><path stroke-linejoin="round" d="M10.077 13.431c4.97-5.56 13.61-3.116 16.923-1.43c1.657-.633 6.197-1.358 9.18.664c3.727 2.528 8.423 9.24 4.074 18.719C36.775 38.968 27.69 42.157 24.376 43c-2.485-1.053-7.946-3.168-13.77-8.448c-5.28-4.788-6.741-14.169-.529-21.12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M27 12c-1.924.75-5.772 2.25-7.87 6.75c-2.256 4.836-.525 9 0 11.25"/><path stroke-linecap="round" d="M21 4c.333.167 2.5.5 3 2.5c.437 1.749-.333 2.833-.5 4"/><path d="M28.479 11.329a1.477 1.477 0 0 1-1.416-1.808c.27-1.287.882-3.044 2.267-4.129c1.384-1.084 3.236-1.259 4.55-1.213a1.477 1.477 0 0 1 1.417 1.807c-.27 1.288-.883 3.045-2.267 4.13c-1.384 1.084-3.236 1.258-4.551 1.213Z"/></g></svg>
+    </div>
+    <div class="header__money" id="header__bonus"> 
+      <h1 class = "header__money-title">Бонус клика:X${bonus}</h1>
+    </div>
+  `
+  
 }, 100);
 setInterval(()=>{
   localStorage.money = Number(localStorage.money) + Number(localStorage.passive_income_per_second)
-
 },1000)

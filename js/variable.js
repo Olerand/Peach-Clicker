@@ -12,13 +12,8 @@ localStorage.chestDateLock;
 localStorage.prestige = localStorage.prestige || false;
 localStorage.prestige_bonus = Number(localStorage.prestige) || 1;
 
+localStorage.click_cost = 1
+localStorage.coef_click = 1
+localStorage.double_click = 1
+localStorage.prestige_bonus = 1
 
-function boost(){
-  localStorage.click_cost = 100000000000000000
-}
-// boost()
-// resetSettings()
-/*
-
-localStorage.prestige_bonus = Number(localStorage.prestige_bonus) + 1
-*/
