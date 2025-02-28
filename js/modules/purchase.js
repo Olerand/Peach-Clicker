@@ -1,7 +1,7 @@
 import { parseCompactNumber,formatBigNumber,glitchAnimation } from "./helper.js";
 import { audioAdd } from "./music.js";
 import { openModalChest,openModalPrestige } from "./ui.js";
-import { checkFarmer,checkChest,checkPresige } from "./progressManager.js";
+import { checkFarmer,checkChest,checkPresige,checkPeachSize } from "./progressManager.js";
 
 document.querySelectorAll(".card__buy-click").forEach(button => {
     button.onclick = (event) => {

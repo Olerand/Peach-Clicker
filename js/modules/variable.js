@@ -33,3 +33,4 @@ export function resetSettings() {
     localStorage.prestige_bonus = Number(localStorage.prestige_bonus) + 1
     location.reload()
 }
+localStorage.money = 1000000000000000000000
