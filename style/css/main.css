@@ -79,7 +79,7 @@
 }
 body {
   font-family: "AristaPro";
-  background-image: url(img/background/back-main.png);
+  background-image: url("../img/background/back-main.png");
   background-size: cover;
 }
 body .overlay {
@@ -115,7 +115,7 @@ body .modal__range {
   justify-content: center;
   align-items: center;
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   -webkit-appearance: none;
   width: 300px;
   height: 8px;
@@ -500,5 +500,5 @@ main .card__buy-image {
 
 @font-face {
   font-family: "AristaPro";
-  src: url(fonts/AristaPro-Regular.ttf);
+  src: url("../fonts/AristaPro-Regular.ttf");
 }
