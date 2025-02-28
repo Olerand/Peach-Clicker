@@ -1,4 +1,4 @@
-import { parseCompactNumber,formatBigNumber,glitchAnimation } from "./helper.js";
+import { parseCompactNumber,glitchAnimation } from "./helper.js";
 import { audioAdd } from "./music.js";
 import { openModalChest,openModalPrestige } from "./ui.js";
 import { checkFarmer,checkChest,checkPresige,checkPeachSize } from "./progressManager.js";

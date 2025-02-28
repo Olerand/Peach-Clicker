@@ -25,7 +25,7 @@ export function checkChest(){
         document.getElementById("clicker-chest").style.display = "none";
     }
 }
-function checkPeachSize(){
+export function checkPeachSize(){
 const levelPeach = {
     "0":{
         size:"50px",
