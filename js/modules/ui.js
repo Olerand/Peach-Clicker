@@ -1,4 +1,4 @@
-import { formatBigNumber } from "./helper.js";
+import { formatBigNumber,parseCompactNumber } from "./helper.js";
 import { levelPeachBoost } from "./progressManager.js";
 import { resetSettings } from "./variable.js";
 //Categories open-lock
