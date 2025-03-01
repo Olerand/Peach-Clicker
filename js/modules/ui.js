@@ -25,7 +25,7 @@ export function clickCostUp(x,y){
     const place = document.getElementById("div-peach")
     const div = document.createElement('h1');
     div.classList.add("fly-numbers")
-    div.textContent = formatBigNumber(Number(localStorage.click_cost)*Number(localStorage.coef_click)*Number(localStorage.double_click)*levelPeachBoost)
+    div.textContent = formatBigNumber(Number(localStorage.click_cost)*Number(localStorage.coef_click)*Number(localStorage.double_click)*levelPeachBoost*Number(localStorage.prestige_bonus))
     div.style.left = x+"px";
     div.style.top = y+"px"
     place.appendChild(div)
